@@ -1,0 +1,14 @@
+dependencies {
+    implementation project(":annotations")
+
+    annotationProcessor 'com.google.auto.service:auto-service:1.0-rc5'
+    compileOnly 'com.google.auto.service:auto-service:1.0-rc5'
+
+    implementation 'com.palantir.javapoet:javapoet:0.5.0'
+
+    testImplementation 'com.google.truth:truth:1.4.4'
+    testImplementation 'com.google.testing.compile:compile-testing:0.21.0'
+
+    testImplementation 'org.junit.jupiter:junit-jupiter-api:5.8.1'
+    testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.8.1'
+}

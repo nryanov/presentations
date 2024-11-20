@@ -1,0 +1,5 @@
+rootProject.name = 'annotation-processing-and-code-generation'
+include 'processor'
+include 'application'
+include 'annotations'
+
