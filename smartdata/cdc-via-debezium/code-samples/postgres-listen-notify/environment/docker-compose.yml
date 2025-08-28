@@ -1,0 +1,32 @@
+services:
+  database:
+    image: postgres:17
+    ports:
+      - "5432:5432"
+    healthcheck:
+      test: [ "CMD-SHELL", "pg_isready -U postgres -d postgres" ]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+      start_period: 10s
+    environment:
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_USER: postgres
+      POSTGRES_DB: postgres
+
+  liquibase:
+    image: liquibase/liquibase:4.32
+    depends_on:
+      - database
+    command:
+      - update
+    environment:
+      LIQUIBASE_COMMAND_CHANGELOG_FILE: changelog.sql
+      LIQUIBASE_COMMAND_DRIVER: org.postgresql.Driver
+      LIQUIBASE_COMMAND_URL: jdbc:postgresql://database:5432/postgres
+      LIQUIBASE_COMMAND_USERNAME: postgres
+      LIQUIBASE_COMMAND_PASSWORD: postgres
+      LIQUIBASE_COMMAND_DEFAULT_SCHEMA_NAME: public
+      LIQUIBASE_SEARCH_PATH: /liquibase/changelog
+    volumes:
+      - "./liquibase:/liquibase/changelog"

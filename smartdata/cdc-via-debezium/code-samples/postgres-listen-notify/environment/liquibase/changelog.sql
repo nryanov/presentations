@@ -1,0 +1,2 @@
+--liquibase formatted sql
+--changeset setup:1

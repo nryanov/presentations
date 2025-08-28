@@ -1,0 +1,19 @@
+plugins {
+    id 'java'
+}
+
+group = 'cdc.sample'
+version = '1.0-SNAPSHOT'
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    implementation 'org.apache.camel:camel-core:4.14.0'
+    implementation 'org.apache.camel:camel-main:4.14.0'
+    implementation 'org.apache.camel:camel-pgevent:4.14.0'
+
+    implementation 'com.impossibl.pgjdbc-ng:pgjdbc-ng:0.8.9'
+    implementation 'ch.qos.logback:logback-classic:1.5.18'
+}
