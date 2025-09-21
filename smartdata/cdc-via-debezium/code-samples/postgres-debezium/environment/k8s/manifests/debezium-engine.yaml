@@ -44,19 +44,19 @@ spec:
             - name: DEBEZIUM_OFFSET_STORAGE_TABLE_NAME
               value: "data.debezium_offsets"
             - name: DEBEZIUM_OFFSET_STORAGE_URL
-              value: "jdbc:postgresql://mdb-cdc-environment:5432/zalando"
+              value: "jdbc:postgresql://postgres-cdc-environment:5432/zalando"
             - name: DEBEZIUM_OFFSET_STORAGE_USER
               valueFrom:
                 secretKeyRef:
-                  name: owner.mdb-cdc-environment.credentials.postgresql.acid.zalan.do
+                  name: owner.postgres-cdc-environment.credentials.postgresql.acid.zalan.do
                   key: username
             - name: DEBEZIUM_OFFSET_STORAGE_PASSWORD
               valueFrom:
                 secretKeyRef:
-                  name: owner.mdb-cdc-environment.credentials.postgresql.acid.zalan.do
+                  name: owner.postgres-cdc-environment.credentials.postgresql.acid.zalan.do
                   key: password
             - name: DEBEZIUM_DB_HOST
-              value: "mdb-cdc-environment"
+              value: "postgres-cdc-environment"
             - name: DEBEZIUM_DB_NAME
               value: "zalando"
             - name: DEBEZIUM_DB_PORT
@@ -64,12 +64,12 @@ spec:
             - name: DEBEZIUM_DB_USERNAME
               valueFrom:
                 secretKeyRef:
-                  name: debezium.mdb-cdc-environment.credentials.postgresql.acid.zalan.do
+                  name: debezium.postgres-cdc-environment.credentials.postgresql.acid.zalan.do
                   key: username
             - name: DEBEZIUM_DB_PASSWORD
               valueFrom:
                 secretKeyRef:
-                  name: debezium.mdb-cdc-environment.credentials.postgresql.acid.zalan.do
+                  name: debezium.postgres-cdc-environment.credentials.postgresql.acid.zalan.do
                   key: password
             - name: DEBEZIUM_TABLES
               value: "data.first,data.second,data.third"
