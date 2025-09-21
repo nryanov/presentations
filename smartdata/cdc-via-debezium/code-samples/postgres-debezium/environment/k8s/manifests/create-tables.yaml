@@ -1,0 +1,54 @@
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: postgres-create-table
+spec:
+  template:
+    spec:
+      initContainers:
+        - name: wait-for-postgres
+          image: postgres:16
+          command: [ 'sh', '-c',
+            'until pg_isready -h $DB_HOST -p 5432 -U $DB_USER; do
+            echo "Waiting for DB to be ready...";
+            sleep 2;
+           done;
+           echo "DB is ready!"' ]
+          env:
+            - name: DB_USER
+              valueFrom:
+                secretKeyRef:
+                  name: owner.mdb-cdc-environment.credentials.postgresql.acid.zalan.do
+                  key: username
+            - name: DB_HOST
+              value: mdb-cdc-environment
+      containers:
+        - name: postgres-client
+          image: postgres:13  # or your preferred version
+          env:
+            - name: PGHOST
+              value: mdb-cdc-environment
+            - name: PGPORT
+              value: "5432"
+            - name: PGUSER
+              valueFrom:
+                secretKeyRef:
+                  name: owner.mdb-cdc-environment.credentials.postgresql.acid.zalan.do
+                  key: username
+            - name: PGPASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: owner.mdb-cdc-environment.credentials.postgresql.acid.zalan.do
+                  key: password
+            - name: PGDATABASE
+              value: "zalando"
+          command: ["psql"]
+          args:
+            - "-c"
+            - |
+              CREATE SCHEMA data;
+              CREATE TABLE data.first (id bigserial primary key);
+              CREATE TABLE data.second (id bigserial primary key);
+              CREATE TABLE data.third (id bigserial primary key);
+      restartPolicy: Never
+  backoffLimit: 2
