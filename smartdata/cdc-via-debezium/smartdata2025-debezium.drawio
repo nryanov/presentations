@@ -1,0 +1,60 @@
+<mxfile host="app.diagrams.net" agent="Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/140.0.0.0 Safari/537.36" version="28.2.3">
+  <diagram id="8xtw7h4H0Tv8uynM1rnH" name="Page-1">
+    <mxGraphModel dx="1073" dy="629" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="850" pageHeight="1100" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="x5nU2oM3Uy0a5vQ-OTUN-1" value="" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffe6cc;dashed=1;glass=0;strokeWidth=2;fillStyle=auto;opacity=30;strokeColor=#d79b00;" vertex="1" parent="1">
+          <mxGeometry x="100" y="50" width="460" height="370" as="geometry" />
+        </mxCell>
+        <mxCell id="x5nU2oM3Uy0a5vQ-OTUN-3" value="" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;fontSize=16;" vertex="1" parent="1">
+          <mxGeometry x="130" y="120" width="240" height="260" as="geometry" />
+        </mxCell>
+        <mxCell id="x5nU2oM3Uy0a5vQ-OTUN-5" value="K8S" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=none;fontSize=20;" vertex="1" parent="1">
+          <mxGeometry x="130" y="380" width="60" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="x5nU2oM3Uy0a5vQ-OTUN-9" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.145;exitY=1;exitDx=0;exitDy=-4.35;exitPerimeter=0;strokeWidth=2;" edge="1" parent="1" source="x5nU2oM3Uy0a5vQ-OTUN-6" target="x5nU2oM3Uy0a5vQ-OTUN-8">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="x5nU2oM3Uy0a5vQ-OTUN-6" value="leader" style="shape=cylinder3;whiteSpace=wrap;html=1;boundedLbl=1;backgroundOutline=1;size=15;fillColor=#f8cecc;strokeColor=#b85450;fontSize=20;" vertex="1" parent="1">
+          <mxGeometry x="220" y="140" width="60" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="x5nU2oM3Uy0a5vQ-OTUN-7" value="replica" style="shape=cylinder3;whiteSpace=wrap;html=1;boundedLbl=1;backgroundOutline=1;size=15;fillColor=#f8cecc;strokeColor=#b85450;fontSize=20;" vertex="1" parent="1">
+          <mxGeometry x="290" y="240" width="60" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="x5nU2oM3Uy0a5vQ-OTUN-8" value="replica" style="shape=cylinder3;whiteSpace=wrap;html=1;boundedLbl=1;backgroundOutline=1;size=15;fillColor=#f8cecc;strokeColor=#b85450;fontSize=20;" vertex="1" parent="1">
+          <mxGeometry x="150" y="240" width="60" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="x5nU2oM3Uy0a5vQ-OTUN-13" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.855;exitY=1;exitDx=0;exitDy=-4.35;exitPerimeter=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;entryPerimeter=0;strokeWidth=2;" edge="1" parent="1" source="x5nU2oM3Uy0a5vQ-OTUN-6" target="x5nU2oM3Uy0a5vQ-OTUN-7">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="x5nU2oM3Uy0a5vQ-OTUN-14" value="physical replication (stream)" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=none;fontSize=9;" vertex="1" parent="1">
+          <mxGeometry x="180" y="220" width="140" height="20" as="geometry" />
+        </mxCell>
+        <mxCell id="x5nU2oM3Uy0a5vQ-OTUN-15" value="sink&amp;nbsp;&lt;div&gt;(kafka, s3, etc)&lt;/div&gt;" style="ellipse;shape=cloud;whiteSpace=wrap;html=1;fontSize=20;fillColor=#e1d5e7;strokeColor=#9673a6;" vertex="1" parent="1">
+          <mxGeometry x="580" y="196" width="195" height="100" as="geometry" />
+        </mxCell>
+        <mxCell id="x5nU2oM3Uy0a5vQ-OTUN-16" value="debezium" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f8cecc;strokeColor=#b85450;fontSize=16;" vertex="1" parent="1">
+          <mxGeometry x="410" y="220" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="x5nU2oM3Uy0a5vQ-OTUN-17" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=0;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;entryPerimeter=0;strokeWidth=2;" edge="1" parent="1" source="x5nU2oM3Uy0a5vQ-OTUN-16" target="x5nU2oM3Uy0a5vQ-OTUN-6">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="470" y="90" />
+              <mxPoint x="250" y="90" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="x5nU2oM3Uy0a5vQ-OTUN-18" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0.16;entryY=0.55;entryDx=0;entryDy=0;entryPerimeter=0;strokeWidth=2;" edge="1" parent="1" source="x5nU2oM3Uy0a5vQ-OTUN-16" target="x5nU2oM3Uy0a5vQ-OTUN-15">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="x5nU2oM3Uy0a5vQ-OTUN-19" value="logical replication" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=none;fontSize=9;" vertex="1" parent="1">
+          <mxGeometry x="320" y="70" width="90" height="20" as="geometry" />
+        </mxCell>
+        <mxCell id="x5nU2oM3Uy0a5vQ-OTUN-21" value="postgres cluster (zalando)" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=none;fontSize=17;" vertex="1" parent="1">
+          <mxGeometry x="145" y="345" width="220" height="30" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>

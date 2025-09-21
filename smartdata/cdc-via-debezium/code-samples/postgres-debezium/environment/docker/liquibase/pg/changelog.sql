@@ -3,7 +3,7 @@
 
 CREATE TABLE table_one
 (
-    id    BIGSERIAL PRIMARY KEY,
+    id    UUID PRIMARY KEY,
     value TEXT
 );
 
