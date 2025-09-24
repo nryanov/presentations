@@ -78,13 +78,6 @@ public class AvroPostgresqlDebeziumEngine implements PostgresqlDebeziumEngine {
         properties.setProperty("database.port", String.valueOf(debeziumConfiguration.database().port()));
         properties.setProperty("database.user", debeziumConfiguration.database().username());
         properties.setProperty("database.password", debeziumConfiguration.database().password());
-        // replication settings
-        if (debeziumConfiguration.replication().tablesInclude().isPresent()) {
-            properties.setProperty("table.include.list", String.join(",", debeziumConfiguration.replication().tablesInclude().get()));
-        }
-        if (debeziumConfiguration.replication().schemasInclude().isPresent()) {
-            properties.setProperty("schema.include.list", String.join(",", debeziumConfiguration.replication().schemasInclude().get()));
-        }
         properties.setProperty("publication.name", debeziumConfiguration.replication().publicationName());
         properties.setProperty("slot.name", debeziumConfiguration.replication().slotName());
         properties.setProperty("plugin.name", debeziumConfiguration.replication().pluginName());

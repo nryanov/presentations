@@ -52,10 +52,6 @@ public interface DebeziumConfiguration {
     }
 
     interface ReplicationConfiguration {
-        Optional<List<String>> tablesInclude();
-
-        Optional<List<String>> schemasInclude();
-
         String publicationName();
 
         @WithDefault("pgoutput")
