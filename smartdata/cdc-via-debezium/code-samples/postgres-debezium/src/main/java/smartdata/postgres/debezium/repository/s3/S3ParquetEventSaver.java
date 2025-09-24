@@ -67,38 +67,9 @@ public class S3ParquetEventSaver implements EventSaver {
     }
 
     @Override
-    public void save(List<EventRecord> events, EventCommitter committer) {
-        attemptToDumpCurrentData(false);
-        backlogData(events, committer);
-    }
-
-    @Override
     public void save(Stream<EventRecord> events, EventCommitter committer) {
         attemptToDumpCurrentData(false);
         backlogData(events, committer);
-    }
-
-    @SuppressWarnings({"unchecked", "resource"})
-    private void backlogData(List<EventRecord> events, EventCommitter committer) {
-        synchronized (this) {
-            logger.infof("Append %s records", events.size());
-            for (var event : events) {
-                var destination = event.destination();
-                var location = generateLocation("warehouse", event.destination());
-                var currentEvents = openedDescriptors.computeIfAbsent(destination, ignored -> createWriter(location, event.schema()));
-
-                try {
-                    currentEvents.write(event.record());
-                    currentRecords++;
-                } catch (IOException e) {
-                    logger.errorf(e, "Error happened while adding new avro to parquet writer: %s", e.getLocalizedMessage());
-                    throw new RuntimeException(e);
-                }
-            }
-
-            committers.add(committer);
-            logger.infof("Successfully appended %s records", events.size());
-        }
     }
 
     @SuppressWarnings({"unchecked", "resource"})
@@ -147,8 +118,7 @@ public class S3ParquetEventSaver implements EventSaver {
             }
 
             // commit every hold batch
-            committers.forEach(EventCommitter::commitRecord);
-            committers.forEach(EventCommitter::commitBatch);
+            committers.forEach(EventCommitter::commit);
             logger.infof("Successfully saved %s total records", currentRecords);
 
             openedDescriptors.clear();

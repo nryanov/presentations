@@ -1,17 +1,15 @@
 package smartdata.postgres.debezium.event.model;
 
-import io.debezium.engine.DebeziumEngine;
-
-public record EventCommitter(DebeziumEngine.RecordCommitter<?> delegate, Runnable commitLastRecord) {
-    public void commitBatch() {
+public record EventCommitter(
+        ThrowableRunnable<Exception> commitBatch,
+        ThrowableRunnable<Exception> commitLastRecord
+) {
+    public void commit() {
         try {
-            delegate.markBatchFinished();
-        } catch (InterruptedException e) {
+            commitLastRecord.run();
+            commitBatch.run();
+        } catch (Exception e) {
             throw new RuntimeException(e);
         }
-    }
-
-    public void commitRecord() {
-        commitLastRecord.run();
     }
 }

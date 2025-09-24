@@ -6,7 +6,7 @@ import io.debezium.engine.format.Binary;
 import jakarta.enterprise.context.ApplicationScoped;
 import org.jboss.logging.Logger;
 import smartdata.postgres.debezium.engine.consumer.AvroEventConsumer;
-import smartdata.postgres.debezium.serde.BinaryAvroSerDe;
+import smartdata.postgres.debezium.event.converter.serde.BinaryAvroSerDe;
 
 import java.io.IOException;
 import java.util.Properties;

@@ -4,5 +4,5 @@ clean:
 compile:
 	./gradlew compileJava
 
-docker-build:
+docker:
 	./gradlew build

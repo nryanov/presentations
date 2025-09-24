@@ -23,22 +23,12 @@ public class AvroEventConsumer implements EventConsumer<Object, Object> {
     }
 
     @Override
-    public void handleBatch(List<ChangeEvent<Object, Object>> records, DebeziumEngine.RecordCommitter<ChangeEvent<Object, Object>> committer) throws InterruptedException {
+    public void handleBatch(List<ChangeEvent<Object, Object>> records, DebeziumEngine.RecordCommitter<ChangeEvent<Object, Object>> committer) {
         logger.infof("Processing next batch: %s", records.size());
 
         // to allow GC free space
         var fullClone = records.getLast();
-
-        var eventCommitter = new EventCommitter(committer, () -> {
-            try {
-                committer.markProcessed(fullClone);
-            } catch (InterruptedException e) {
-                logger.errorf(e, "Error happened while marking record as processed: %s", e.getLocalizedMessage());
-                throw new RuntimeException(e);
-            }
-        });
-
-        records.forEach(it -> logger.infof("Record from: %s", it.destination()));
+        var eventCommitter = new EventCommitter(committer::markBatchFinished, () -> committer.markProcessed(fullClone));
         var stream = records.stream().map(converter::convert);
 
         eventSaver.save(stream, eventCommitter);

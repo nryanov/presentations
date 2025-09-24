@@ -1,4 +1,4 @@
-package smartdata.postgres.debezium.serde;
+package smartdata.postgres.debezium.event.converter.serde;
 
 
 import io.apicurio.registry.utils.converter.avro.AvroData;

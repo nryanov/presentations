@@ -6,10 +6,8 @@ import jakarta.enterprise.context.ApplicationScoped;
 import org.jboss.logging.Logger;
 import smartdata.postgres.debezium.event.converter.JsonEventConverter;
 import smartdata.postgres.debezium.event.model.EventCommitter;
-import smartdata.postgres.debezium.event.model.EventRecord;
 import smartdata.postgres.debezium.repository.EventSaver;
 
-import java.util.ArrayList;
 import java.util.List;
 
 @ApplicationScoped
@@ -25,31 +23,15 @@ public class JsonEventConsumer implements EventConsumer<String, String> {
     }
 
     @Override
-    public void handleBatch(List<ChangeEvent<String, String>> records, DebeziumEngine.RecordCommitter<ChangeEvent<String, String>> committer) throws InterruptedException {
+    public void handleBatch(List<ChangeEvent<String, String>> records, DebeziumEngine.RecordCommitter<ChangeEvent<String, String>> committer) {
         logger.infof("Processing next batch: %s", records.size());
 
-        var convertedEvents = new ArrayList<EventRecord>();
-        var eventCommitter = new EventCommitter(committer, () -> {
-            try {
-                committer.markProcessed(records.getLast());
-            } catch (InterruptedException e) {
-                throw new RuntimeException(e);
-            }
-        });
+        // to allow GC free space
+        var fullClone = records.getLast();
+        var eventCommitter = new EventCommitter(committer::markBatchFinished, () -> committer.markProcessed(fullClone));
+        var stream = records.stream().map(converter::convert);
 
-        for (var record : records) {
-            var eventRecord = converter.convert(record);
-            convertedEvents.add(eventRecord);
-
-            try {
-                // mark each record as processed doesn't commit offsets but needed for final markBatchFinished call
-                committer.markProcessed(record);
-            } catch (InterruptedException e) {
-                throw new RuntimeException(e);
-            }
-        }
-
-        eventSaver.save(convertedEvents, eventCommitter);
+        eventSaver.save(stream, eventCommitter);
         logger.infof("Successfully handled batch with `%s` records", records.size());
     }
 }

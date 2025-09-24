@@ -28,17 +28,7 @@ public class ConfluentAvroEventConsumer implements EventConsumer<byte[], byte[]>
 
         // to allow GC free space
         var fullClone = records.getLast();
-
-        var eventCommitter = new EventCommitter(committer, () -> {
-            try {
-                committer.markProcessed(fullClone);
-            } catch (InterruptedException e) {
-                logger.errorf(e, "Error happened while marking record as processed: %s", e.getLocalizedMessage());
-                throw new RuntimeException(e);
-            }
-        });
-
-        records.forEach(it -> logger.infof("Record from: %s", it.destination()));
+        var eventCommitter = new EventCommitter(committer::markBatchFinished, () -> committer.markProcessed(fullClone));
         var stream = records.stream().map(converter::convert);
 
         eventSaver.save(stream, eventCommitter);
