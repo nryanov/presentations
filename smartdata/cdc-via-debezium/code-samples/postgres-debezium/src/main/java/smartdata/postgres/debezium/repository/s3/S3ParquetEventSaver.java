@@ -1,4 +1,4 @@
-package smartdata.postgres.debezium.event.repository.s3;
+package smartdata.postgres.debezium.repository.s3;
 
 import jakarta.enterprise.context.ApplicationScoped;
 import org.apache.avro.Schema;
@@ -14,7 +14,7 @@ import smartdata.postgres.debezium.configuration.EventSaverConfiguration;
 import smartdata.postgres.debezium.configuration.S3Configuration;
 import smartdata.postgres.debezium.event.model.EventCommitter;
 import smartdata.postgres.debezium.event.model.EventRecord;
-import smartdata.postgres.debezium.event.repository.EventSaver;
+import smartdata.postgres.debezium.repository.EventSaver;
 
 import java.io.IOException;
 import java.net.URI;

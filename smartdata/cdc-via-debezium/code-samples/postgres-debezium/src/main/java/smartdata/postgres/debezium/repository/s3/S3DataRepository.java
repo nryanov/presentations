@@ -1,8 +1,8 @@
-package smartdata.postgres.debezium.event.repository.s3;
+package smartdata.postgres.debezium.repository.s3;
 
 import jakarta.enterprise.context.ApplicationScoped;
 import smartdata.postgres.debezium.configuration.S3Configuration;
-import smartdata.postgres.debezium.event.repository.DataRepository;
+import smartdata.postgres.debezium.repository.DataRepository;
 import software.amazon.awssdk.auth.credentials.AwsBasicCredentials;
 import software.amazon.awssdk.auth.credentials.StaticCredentialsProvider;
 import software.amazon.awssdk.core.sync.RequestBody;

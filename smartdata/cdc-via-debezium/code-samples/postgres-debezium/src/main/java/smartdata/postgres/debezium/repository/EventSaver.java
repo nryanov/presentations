@@ -1,4 +1,4 @@
-package smartdata.postgres.debezium.event.repository;
+package smartdata.postgres.debezium.repository;
 
 
 import smartdata.postgres.debezium.event.model.EventCommitter;

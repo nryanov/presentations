@@ -6,7 +6,6 @@ import io.debezium.engine.format.Avro;
 import io.debezium.engine.format.KeyValueChangeEventFormat;
 import jakarta.enterprise.context.ApplicationScoped;
 import org.jboss.logging.Logger;
-import smartdata.postgres.debezium.configuration.DebeziumConfiguration;
 import smartdata.postgres.debezium.configuration.SchemaRegistryConfiguration;
 import smartdata.postgres.debezium.engine.consumer.ConfluentAvroEventConsumer;
 
@@ -20,7 +19,7 @@ import java.util.concurrent.TimeUnit;
 public class ConfluentAvroPostgresqlDebeziumEngine implements PostgresqlDebeziumEngine {
     private static final Logger logger = Logger.getLogger(ConfluentAvroPostgresqlDebeziumEngine.class);
 
-    private final DebeziumConfiguration debeziumConfiguration;
+    private final DebeziumCommonConfiguration debeziumCommonConfiguration;
     private final SchemaRegistryConfiguration schemaRegistryConfiguration;
     private final ConfluentAvroEventConsumer consumer;
 
@@ -28,11 +27,11 @@ public class ConfluentAvroPostgresqlDebeziumEngine implements PostgresqlDebezium
     private ExecutorService executor;
 
     public ConfluentAvroPostgresqlDebeziumEngine(
-            DebeziumConfiguration debeziumConfiguration,
+            DebeziumCommonConfiguration debeziumCommonConfiguration,
             SchemaRegistryConfiguration schemaRegistryConfiguration,
             ConfluentAvroEventConsumer consumer
     ) {
-        this.debeziumConfiguration = debeziumConfiguration;
+        this.debeziumCommonConfiguration = debeziumCommonConfiguration;
         this.schemaRegistryConfiguration = schemaRegistryConfiguration;
         this.consumer = consumer;
     }
@@ -69,25 +68,7 @@ public class ConfluentAvroPostgresqlDebeziumEngine implements PostgresqlDebezium
     }
 
     private Properties properties() {
-        var properties = new Properties();
-        properties.setProperty("name", debeziumConfiguration.name());
-        properties.setProperty("connector.class", debeziumConfiguration.connectorClass());
-        debeziumConfiguration.additionalProperties().forEach(properties::setProperty);
-        // offset storage settings
-        properties.setProperty("offset.storage", debeziumConfiguration.offsetStorage().storageClass());
-        debeziumConfiguration.offsetStorage().additionalProperties().forEach((key, value) -> properties.setProperty("offset.storage." + key, value));
-        // database settings
-        properties.setProperty("database.hostname", debeziumConfiguration.database().host());
-        properties.setProperty("database.dbname", debeziumConfiguration.database().name());
-        properties.setProperty("database.port", String.valueOf(debeziumConfiguration.database().port()));
-        properties.setProperty("database.user", debeziumConfiguration.database().username());
-        properties.setProperty("database.password", debeziumConfiguration.database().password());
-        // replication settings
-        properties.setProperty("publication.name", debeziumConfiguration.replication().publicationName());
-        properties.setProperty("slot.name", debeziumConfiguration.replication().slotName());
-        properties.setProperty("plugin.name", debeziumConfiguration.replication().pluginName());
-        properties.setProperty("snapshot.mode", debeziumConfiguration.replication().snapshotMode().name());
-        properties.setProperty("topic.prefix", debeziumConfiguration.replication().topicPrefix());
+        var properties = debeziumCommonConfiguration.properties();
         // avro
         properties.setProperty("key.converter", "io.confluent.connect.avro.AvroConverter");
         properties.setProperty("key.converter.schema.registry.url", schemaRegistryConfiguration.url());

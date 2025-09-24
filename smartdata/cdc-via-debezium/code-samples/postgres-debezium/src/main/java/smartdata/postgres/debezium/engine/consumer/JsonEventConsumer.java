@@ -7,7 +7,7 @@ import org.jboss.logging.Logger;
 import smartdata.postgres.debezium.event.converter.JsonEventConverter;
 import smartdata.postgres.debezium.event.model.EventCommitter;
 import smartdata.postgres.debezium.event.model.EventRecord;
-import smartdata.postgres.debezium.event.repository.EventSaver;
+import smartdata.postgres.debezium.repository.EventSaver;
 
 import java.util.ArrayList;
 import java.util.List;

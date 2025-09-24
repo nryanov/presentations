@@ -5,7 +5,6 @@ import io.debezium.engine.DebeziumEngine;
 import io.debezium.engine.format.Json;
 import jakarta.enterprise.context.ApplicationScoped;
 import org.jboss.logging.Logger;
-import smartdata.postgres.debezium.configuration.DebeziumConfiguration;
 import smartdata.postgres.debezium.engine.consumer.JsonEventConsumer;
 
 import java.io.IOException;
@@ -18,17 +17,17 @@ import java.util.concurrent.TimeUnit;
 public class JsonPostgresqlDebeziumEngine implements PostgresqlDebeziumEngine {
     private static final Logger logger = Logger.getLogger(JsonPostgresqlDebeziumEngine.class);
 
-    private final DebeziumConfiguration debeziumConfiguration;
+    private final DebeziumCommonConfiguration debeziumCommonConfiguration;
     private final JsonEventConsumer consumer;
 
     private DebeziumEngine<ChangeEvent<String, String>> engine;
     private ExecutorService executor;
 
     public JsonPostgresqlDebeziumEngine(
-            DebeziumConfiguration debeziumConfiguration,
+            DebeziumCommonConfiguration debeziumCommonConfiguration,
             JsonEventConsumer consumer
     ) {
-        this.debeziumConfiguration = debeziumConfiguration;
+        this.debeziumCommonConfiguration = debeziumCommonConfiguration;
         this.consumer = consumer;
     }
 
@@ -64,24 +63,7 @@ public class JsonPostgresqlDebeziumEngine implements PostgresqlDebeziumEngine {
     }
 
     private Properties properties() {
-        var properties = new Properties();
-        properties.setProperty("name", debeziumConfiguration.name());
-        properties.setProperty("connector.class", debeziumConfiguration.connectorClass());
-        debeziumConfiguration.additionalProperties().forEach(properties::setProperty);
-        // offset storage settings
-        properties.setProperty("offset.storage", debeziumConfiguration.offsetStorage().storageClass());
-        debeziumConfiguration.offsetStorage().additionalProperties().forEach((key, value) -> properties.setProperty("offset.storage." + key, value));
-        // database settings
-        properties.setProperty("database.hostname", debeziumConfiguration.database().host());
-        properties.setProperty("database.dbname", debeziumConfiguration.database().name());
-        properties.setProperty("database.port", String.valueOf(debeziumConfiguration.database().port()));
-        properties.setProperty("database.user", debeziumConfiguration.database().username());
-        properties.setProperty("database.password", debeziumConfiguration.database().password());
-        properties.setProperty("publication.name", debeziumConfiguration.replication().publicationName());
-        properties.setProperty("slot.name", debeziumConfiguration.replication().slotName());
-        properties.setProperty("plugin.name", debeziumConfiguration.replication().pluginName());
-        properties.setProperty("snapshot.mode", debeziumConfiguration.replication().snapshotMode().name());
-        properties.setProperty("topic.prefix", debeziumConfiguration.replication().topicPrefix());
+        var properties = debeziumCommonConfiguration.properties();
         // json
         properties.setProperty("key.converter.schemas.enable", "false");
         properties.setProperty("value.converter.schemas.enable", "false");
