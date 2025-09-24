@@ -67,4 +67,4 @@ services:
       LIQUIBASE_COMMAND_DEFAULT_SCHEMA_NAME: public
       LIQUIBASE_SEARCH_PATH: /liquibase/changelog
     volumes:
-      - "./liquibase:/liquibase/changelog"
+      - "./liquibase/pg:/liquibase/changelog"

@@ -8,9 +8,16 @@ import java.time.Duration;
 public interface EventSaverConfiguration {
     Threshold threshold();
 
+    EventSaverType type();
+
     interface Threshold {
         Duration timeout();
 
         int totalRecords();
+    }
+
+
+    enum EventSaverType {
+        CONSOLE, S3
     }
 }

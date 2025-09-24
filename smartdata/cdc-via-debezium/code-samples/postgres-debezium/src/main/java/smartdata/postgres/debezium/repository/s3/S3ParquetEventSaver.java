@@ -1,24 +1,14 @@
 package smartdata.postgres.debezium.repository.s3;
 
 import jakarta.enterprise.context.ApplicationScoped;
-import org.apache.avro.Schema;
-import org.apache.avro.generic.GenericRecord;
-import org.apache.hadoop.conf.Configuration;
-import org.apache.hadoop.fs.Path;
-import org.apache.parquet.avro.AvroParquetWriter;
 import org.apache.parquet.hadoop.ParquetWriter;
-import org.apache.parquet.hadoop.metadata.CompressionCodecName;
-import org.apache.parquet.hadoop.util.HadoopOutputFile;
 import org.jboss.logging.Logger;
 import smartdata.postgres.debezium.configuration.EventSaverConfiguration;
-import smartdata.postgres.debezium.configuration.S3Configuration;
 import smartdata.postgres.debezium.event.model.EventCommitter;
 import smartdata.postgres.debezium.event.model.EventRecord;
 import smartdata.postgres.debezium.repository.EventSaver;
 
 import java.io.IOException;
-import java.net.URI;
-import java.net.URISyntaxException;
 import java.time.Duration;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -33,11 +23,10 @@ import java.util.stream.Stream;
 public class S3ParquetEventSaver implements EventSaver {
     private static final Logger logger = Logger.getLogger(S3ParquetEventSaver.class);
 
-    private final S3DataRepository dataRepository;
+    private final S3ParquetWriterBuilder s3ParquetWriterBuilder;
 
     private final List<EventCommitter> committers;
     private final Map<String, ParquetWriter> openedDescriptors;
-    private final S3Configuration s3Configuration;
 
     private final Duration timeoutThreshold;
     private final int totalRecordsThreshold;
@@ -47,12 +36,10 @@ public class S3ParquetEventSaver implements EventSaver {
     private int currentRecords;
 
     public S3ParquetEventSaver(
-            S3DataRepository dataRepository,
-            EventSaverConfiguration configuration,
-            S3Configuration s3Configuration
+            S3ParquetWriterBuilder s3ParquetWriterBuilder,
+            EventSaverConfiguration configuration
     ) {
-        this.dataRepository = dataRepository;
-        this.s3Configuration = s3Configuration;
+        this.s3ParquetWriterBuilder = s3ParquetWriterBuilder;
 
         this.committers = new ArrayList<>();
         this.openedDescriptors = new HashMap<>();
@@ -79,7 +66,7 @@ public class S3ParquetEventSaver implements EventSaver {
             events.forEach(event -> {
                 var destination = event.destination();
                 var location = generateLocation("warehouse", event.destination());
-                var currentEvents = openedDescriptors.computeIfAbsent(destination, ignored -> createWriter(location, event.schema()));
+                var currentEvents = openedDescriptors.computeIfAbsent(destination, ignored -> s3ParquetWriterBuilder.create(location, event.schema()));
 
                 try {
                     currentEvents.write(event.record());
@@ -128,43 +115,10 @@ public class S3ParquetEventSaver implements EventSaver {
         }
     }
 
-    private ParquetWriter<GenericRecord> createWriter(String location, Schema schema) {
-        try {
-            logger.infof("Opening parquet writer for `%s`", location);
-            var path = new Path(new URI(location));
-
-            var config = new Configuration();
-            config.set("fs.s3a.access.key", s3Configuration.accessKey());
-            config.set("fs.s3a.secret.key", s3Configuration.secretAccessKey());
-            config.set("fs.s3a.impl", "org.apache.hadoop.fs.s3a.S3AFileSystem");
-            config.set("fs.s3a.path.style.access", String.valueOf(s3Configuration.forcePathAccess()));
-            config.set("fs.s3a.endpoint", s3Configuration.endpoint());
-
-            var builder = AvroParquetWriter
-                    .<GenericRecord>builder(HadoopOutputFile.fromPath(path, config))
-                    // todo: bloom, NDV, stats
-                    .withCompressionCodec(CompressionCodecName.ZSTD)
-                    .withSchema(schema);
-            var writer = builder.build();
-
-            logger.infof("Successfully opened writer for `%s`", location);
-
-            return writer;
-        } catch (URISyntaxException e) {
-            // todo: domain URI error
-            throw new RuntimeException(e);
-        } catch (IOException e) {
-            // todo: domain IO error
-            logger.errorf(e, "Error happened while creating parquet writer: %s", e.getLocalizedMessage());
-            throw new RuntimeException(e);
-        }
-    }
-
     private String generateLocation(String bucket, String destination) {
         return String.format(
-                "s3a://%s/%s/%s_%s.parquet",
+                "s3a://%s/%s/%s.parquet",
                 bucket,
-                destination, // todo: -> schema/table/[file1, file2, .., fileN]
                 destination,
                 System.currentTimeMillis()
         );

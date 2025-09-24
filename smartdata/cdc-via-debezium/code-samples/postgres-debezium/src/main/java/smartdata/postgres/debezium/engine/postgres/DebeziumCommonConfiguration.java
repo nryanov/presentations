@@ -20,6 +20,7 @@ public class DebeziumCommonConfiguration {
         debeziumConfiguration.additionalProperties().forEach(properties::setProperty);
         // offset storage settings
         properties.setProperty("offset.storage", debeziumConfiguration.offsetStorage().storageClass());
+        properties.setProperty("offset.flush.interval.ms", String.valueOf(debeziumConfiguration.offsetStorage().flushInterval()));
         debeziumConfiguration.offsetStorage().additionalProperties().forEach((key, value) -> properties.setProperty("offset.storage." + key, value));
         // database settings
         properties.setProperty("database.hostname", debeziumConfiguration.database().host());

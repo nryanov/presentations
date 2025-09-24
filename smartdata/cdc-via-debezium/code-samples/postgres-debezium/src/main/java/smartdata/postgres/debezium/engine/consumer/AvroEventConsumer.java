@@ -6,7 +6,7 @@ import jakarta.enterprise.context.ApplicationScoped;
 import org.jboss.logging.Logger;
 import smartdata.postgres.debezium.event.converter.AvroEventConverter;
 import smartdata.postgres.debezium.event.model.EventCommitter;
-import smartdata.postgres.debezium.repository.EventSaver;
+import smartdata.postgres.debezium.service.EventSaverService;
 
 import java.util.List;
 
@@ -14,10 +14,10 @@ import java.util.List;
 public class AvroEventConsumer implements EventConsumer<Object, Object> {
     private static final Logger logger = Logger.getLogger(AvroEventConsumer.class);
 
-    private final EventSaver eventSaver;
+    private final EventSaverService eventSaver;
     private final AvroEventConverter converter;
 
-    public AvroEventConsumer(EventSaver eventSaver, AvroEventConverter converter) {
+    public AvroEventConsumer(EventSaverService eventSaver, AvroEventConverter converter) {
         this.eventSaver = eventSaver;
         this.converter = converter;
     }
