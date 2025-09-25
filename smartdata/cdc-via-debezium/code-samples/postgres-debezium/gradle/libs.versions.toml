@@ -1,6 +1,7 @@
 [versions]
 quarkus = "3.23.1"
 debezium = "3.1.2.Final"
+#debezium = "2.7.0.Final"
 s3 = "2.31.59"
 confluent = "7.9.1"
 apicurio = "2.6.12.Final"
