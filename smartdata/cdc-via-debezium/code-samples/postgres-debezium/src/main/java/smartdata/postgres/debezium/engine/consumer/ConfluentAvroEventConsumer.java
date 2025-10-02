@@ -29,7 +29,7 @@ public class ConfluentAvroEventConsumer implements EventConsumer<byte[], byte[]>
         // to allow GC free space
         var fullClone = records.getLast();
         var eventCommitter = new EventCommitter(committer::markBatchFinished, () -> committer.markProcessed(fullClone));
-        var stream = records.stream().map(converter::convert);
+        var stream = records.stream().filter(event -> event.value() != null).map(converter::convert);
 
         eventSaver.save(stream, eventCommitter);
         logger.infof("Successfully handled batch with `%s` records", records.size());

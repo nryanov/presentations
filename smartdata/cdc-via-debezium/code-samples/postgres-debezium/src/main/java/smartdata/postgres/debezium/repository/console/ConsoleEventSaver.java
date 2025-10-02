@@ -15,7 +15,7 @@ public class ConsoleEventSaver implements EventSaver {
     @Override
     public void save(Stream<EventRecord> events, EventCommitter committer) {
 //        events.forEach(event -> logger.infof("Event: %s", event.record()));
-        events.forEach(event -> System.out.printf("Event: %s%n", event.record()));
+        events.forEach(event -> System.out.printf("Destination: %s, event: %s%n", event.destination(), event.record()));
         committer.commit();
     }
 }
