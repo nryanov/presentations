@@ -46,9 +46,9 @@ spec:
           args:
             - "-c"
             - |
-              CREATE SCHEMA data;
-              CREATE TABLE data.first (id bigserial primary key);
-              CREATE TABLE data.second (id bigserial primary key);
-              CREATE TABLE data.third (id bigserial primary key);
+              CREATE TABLE public.offsets(id TEXT PRIMARY KEY, offset_key TEXT, offset_val TEXT, record_insert_ts  TIMESTAMP NOT NULL, record_insert_seq INTEGER NOT NULL);
+              CREATE TABLE public.heartbeat(single_row bool PRIMARY KEY DEFAULT TRUE, last_update TIMESTAMP NOT NULL, CONSTRAINT single_row_check CHECK (single_row));
+              CREATE TABLE public.signals (id TEXT NOT NULL PRIMARY KEY, type TEXT NOT NULL, data TEXT);
+              CREATE TABLE public.data (id BIGSERIAL PRIMARY KEY, field1 TEXT, field2 TEXT, field3 TEXT);
       restartPolicy: Never
   backoffLimit: 2

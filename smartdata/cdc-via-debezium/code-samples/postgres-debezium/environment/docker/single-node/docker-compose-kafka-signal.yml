@@ -1,7 +1,16 @@
+networks:
+  pg-cluster:
+
 services:
+  schema-registry:
+    image: apicurio/apicurio-registry:3.0.9
+    networks: [ pg-cluster ]
+    ports:
+      - "8080:8080"
+
   minio:
     image: minio/minio:RELEASE.2025-02-28T09-55-16Z
-    container_name: minio
+    networks: [ pg-cluster ]
     environment:
       - MINIO_ROOT_USER=admin
       - MINIO_ROOT_PASSWORD=password
@@ -15,7 +24,7 @@ services:
     depends_on:
       - minio
     image: minio/minio:RELEASE.2025-02-28T09-55-16Z
-    container_name: mc
+    networks: [ pg-cluster ]
     entrypoint: >
       /bin/sh -c "
       until (/usr/bin/mc config host add minio http://minio:9000 admin password) do echo '...waiting...' && sleep 1; done;
@@ -26,12 +35,13 @@ services:
       tail -f /dev/null
       "
 
-  timescaledb:
-    image: timescale/timescaledb:2.21.0-pg17
+  database:
+    image: postgres:17
+    networks: [ pg-cluster ]
     ports:
       - "5432:5432"
     healthcheck:
-      test: [ "CMD-SHELL", "pg_isready -U postgres -d postgres" ]
+      test: ["CMD-SHELL", "pg_isready -U postgres -d postgres"]
       interval: 10s
       timeout: 5s
       retries: 5
@@ -49,24 +59,45 @@ services:
       - "-c"
       - "max_replication_slots=5"
 
-  liquibase-timescale:
+  liquibase:
     image: liquibase/liquibase:4.32
+    networks: [ pg-cluster ]
     depends_on:
-      - timescaledb
+      - database
     command:
       - update
     environment:
       LIQUIBASE_COMMAND_CHANGELOG_FILE: changelog.sql
       LIQUIBASE_COMMAND_DRIVER: org.postgresql.Driver
-      LIQUIBASE_COMMAND_URL: jdbc:postgresql://timescaledb:5432/postgres
+      LIQUIBASE_COMMAND_URL: jdbc:postgresql://database:5432/postgres
       LIQUIBASE_COMMAND_USERNAME: postgres
       LIQUIBASE_COMMAND_PASSWORD: postgres
       LIQUIBASE_COMMAND_DEFAULT_SCHEMA_NAME: public
       LIQUIBASE_SEARCH_PATH: /liquibase/changelog
     volumes:
-      - "./liquibase/timescale:/liquibase/changelog"
+      - "./liquibase/pg:/liquibase/changelog"
 
-  schema-registry:
-    image: apicurio/apicurio-registry:3.0.9
+  broker:
+    image: redpandadata/redpanda:v24.2.25
+    networks: [ pg-cluster ]
+    command:
+      - redpanda
+      - start
+      - --smp
+      - '1'
+      - --reserve-memory
+      - 0M
+      - --overprovisioned
+      - --node-id
+      - '0'
+      - --kafka-addr
+      - PLAINTEXT://0.0.0.0:29092,OUTSIDE://0.0.0.0:9092
+      - --advertise-kafka-addr
+      - PLAINTEXT://broker:29092,OUTSIDE://localhost:9092
+      - --pandaproxy-addr
+      - PLAINTEXT://0.0.0.0:28082,OUTSIDE://0.0.0.0:8082
+      - --advertise-pandaproxy-addr
+      - PLAINTEXT://broker:28082,OUTSIDE://localhost:8082
     ports:
-      - "8080:8080"
+      - "9092:9092"
+      - "9644:9644"

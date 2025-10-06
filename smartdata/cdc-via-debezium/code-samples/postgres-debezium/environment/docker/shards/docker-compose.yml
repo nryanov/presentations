@@ -1,11 +1,16 @@
+networks:
+  pg-cluster:
+
 services:
   schema-registry:
     image: apicurio/apicurio-registry:3.0.9
+    networks: [ pg-cluster ]
     ports:
       - "8080:8080"
 
   shard1:
     image: postgres:17
+    networks: [ pg-cluster ]
     ports:
       - "5432:5432"
     healthcheck:
@@ -29,6 +34,7 @@ services:
 
   shard2:
     image: postgres:17
+    networks: [ pg-cluster ]
     ports:
       - "5433:5432"
     healthcheck:
@@ -52,6 +58,7 @@ services:
 
   liquibase1:
     image: liquibase/liquibase:4.32
+    networks: [ pg-cluster ]
     depends_on:
       - shard1
     command:
@@ -69,6 +76,7 @@ services:
 
   liquibase2:
     image: liquibase/liquibase:4.32
+    networks: [ pg-cluster ]
     depends_on:
       - shard2
     command:
