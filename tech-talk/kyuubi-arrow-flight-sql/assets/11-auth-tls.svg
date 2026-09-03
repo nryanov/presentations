@@ -1,0 +1,43 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="900" viewBox="0 0 1600 900">
+  <rect width="1600" height="900" fill="#f7fafc"/>
+  
+<style>
+  .t{font:700 32px Arial,sans-serif;fill:#09243f}
+  .h{font:700 22px Arial,sans-serif;fill:#09243f}
+  .b{font:400 18px Arial,sans-serif;fill:#13283d}
+  .s{font:400 15px Arial,sans-serif;fill:#5d7082}
+  .m{font:400 16px Menlo,Consolas,monospace;fill:#09243f}
+  .mw{font:400 16px Menlo,Consolas,monospace;fill:#e8f5fb}
+  .hw{font:700 18px Menlo,Consolas,monospace;fill:#e8f5fb}
+</style>
+
+  
+  <defs>
+    <marker id="a" markerWidth="10" markerHeight="10" refX="9" refY="5" orient="auto">
+      <path d="M0,0 L10,5 L0,10 Z" fill="#13a6aa"/>
+    </marker>
+    <marker id="ao" markerWidth="10" markerHeight="10" refX="9" refY="5" orient="auto">
+      <path d="M0,0 L10,5 L0,10 Z" fill="#f28a22"/>
+    </marker>
+  </defs>
+
+  
+  <text x="60" y="55" class="t">Authentication and TLS on Flight SQL</text>
+  <text x="60" y="85" class="s">Flight authorization headers map onto Kyuubi authentication providers.</text>
+  <rect x="60" y="140" width="360" height="200" rx="14" fill="#dff4f2"/><text x="90" y="185" class="h">NONE / NOSASL</text><text x="90" y="230" class="b">No Authorization header</text><text x="90" y="265" class="b">optional x-user-name</text><text x="90" y="300" class="s">session user = anonymous</text>
+  <rect x="450" y="140" width="360" height="200" rx="14" fill="#e7f7f6"/><text x="480" y="185" class="h">Basic / LDAP</text><text x="480" y="230" class="m">Authorization: Basic ...</text><text x="480" y="265" class="b">validated by Kyuubi auth</text><text x="480" y="300" class="s">then openSession(user)</text>
+  <rect x="840" y="140" width="360" height="200" rx="14" fill="#fff1e2"/><text x="870" y="185" class="h">Kerberos</text><text x="870" y="230" class="m">Authorization: Negotiate</text><text x="870" y="265" class="b">SPNEGO bootstrap</text><text x="870" y="300" class="s">issues Bearer token</text>
+  <rect x="1230" y="140" width="310" height="200" rx="14" fill="#e8eefb"/><text x="1260" y="185" class="h">TLS</text><text x="1260" y="230" class="m">ssl.enabled=true</text><text x="1260" y="265" class="m">cert.file + key.file</text><text x="1260" y="300" class="s">URI: grpc+tls://</text>
+  <rect x="60" y="390" width="1480" height="420" rx="16" fill="#ffffff" stroke="#9fb8c8" stroke-width="2"/>
+  <text x="100" y="440" class="h">Token flow after Basic / SPNEGO</text>
+  <rect x="100" y="480" width="300" height="100" rx="12" fill="#09243f"/><text x="130" y="525" class="mw">1. authenticate</text><text x="130" y="555" class="mw">Basic or Negotiate</text>
+  <line x1="400" y1="530" x2="470" y2="530" stroke="#13a6aa" stroke-width="4" marker-end="url(#a)"/>
+  <rect x="470" y="480" width="340" height="100" rx="12" fill="#09243f"/><text x="500" y="525" class="mw">2. issue Bearer</text><text x="500" y="555" class="mw">ttl = token.ttl (default 2h)</text>
+  <line x1="810" y1="530" x2="880" y2="530" stroke="#13a6aa" stroke-width="4" marker-end="url(#a)"/>
+  <rect x="880" y="480" width="360" height="100" rx="12" fill="#09243f"/><text x="910" y="525" class="mw">3. subsequent RPCs</text><text x="910" y="555" class="mw">Authorization: Bearer &lt;tok&gt;</text>
+  <line x1="1240" y1="530" x2="1310" y2="530" stroke="#f28a22" stroke-width="4" marker-end="url(#ao)"/>
+  <rect x="1310" y="480" width="180" height="100" rx="12" fill="#fff1e2"/><text x="1340" y="535" class="b">session</text>
+  <text x="100" y="660" class="b">Local Docker demo uses NONE — no credentials, grpc:// (not grpc+tls://).</text>
+  <text x="100" y="710" class="s">PEM files can also be materialized from shared kyuubi.frontend.ssl.keystore.* when cert/key paths are unset.</text>
+
+</svg>

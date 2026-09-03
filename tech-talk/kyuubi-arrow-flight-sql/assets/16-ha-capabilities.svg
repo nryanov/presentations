@@ -1,0 +1,56 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="900" viewBox="0 0 1600 900">
+  <rect width="1600" height="900" fill="#f7fafc"/>
+  
+<style>
+  .t{font:700 32px Arial,sans-serif;fill:#09243f}
+  .h{font:700 22px Arial,sans-serif;fill:#09243f}
+  .b{font:400 18px Arial,sans-serif;fill:#13283d}
+  .s{font:400 15px Arial,sans-serif;fill:#5d7082}
+  .m{font:400 16px Menlo,Consolas,monospace;fill:#09243f}
+  .mw{font:400 16px Menlo,Consolas,monospace;fill:#e8f5fb}
+  .hw{font:700 18px Menlo,Consolas,monospace;fill:#e8f5fb}
+</style>
+
+  
+  <defs>
+    <marker id="a" markerWidth="10" markerHeight="10" refX="9" refY="5" orient="auto">
+      <path d="M0,0 L10,5 L0,10 Z" fill="#13a6aa"/>
+    </marker>
+    <marker id="ao" markerWidth="10" markerHeight="10" refX="9" refY="5" orient="auto">
+      <path d="M0,0 L10,5 L0,10 Z" fill="#f28a22"/>
+    </marker>
+  </defs>
+
+  
+  <text x="60" y="55" class="t">Frontend HA capability matrix</text>
+  <text x="60" y="85" class="s">What fails over when a Kyuubi server dies — by frontend protocol.</text>
+  <rect x="60" y="130" width="1480" height="70" rx="10" fill="#09243f"/>
+  <text x="90" y="175" class="hw">Capability</text>
+  <text x="520" y="175" class="hw">FLIGHT_SQL</text>
+  <text x="860" y="175" class="hw">THRIFT / REST</text>
+  <text x="1220" y="175" class="hw">SPARK_CONNECT</text>
+  <rect x="60" y="220" width="1480" height="90" rx="10" fill="#ffffff" stroke="#9fb8c8" stroke-width="2"/>
+  <text x="90" y="275" class="b">ZK discovery / remove dead node</text>
+  <text x="520" y="275" class="m">YES (kyuubi_flight)</text>
+  <text x="860" y="275" class="m">YES (kyuubi)</text>
+  <text x="1220" y="275" class="m">YES (kyuubi_sc)</text>
+  <rect x="60" y="320" width="1480" height="90" rx="10" fill="#e7f7f6" stroke="#13a6aa" stroke-width="2"/>
+  <text x="90" y="375" class="b">New session on surviving node</text>
+  <text x="520" y="375" class="m">YES</text>
+  <text x="860" y="375" class="m">YES (reconnect)</text>
+  <text x="1220" y="375" class="m">YES</text>
+  <rect x="60" y="420" width="1480" height="90" rx="10" fill="#ffffff" stroke="#9fb8c8" stroke-width="2"/>
+  <text x="90" y="475" class="b">Same Kyuubi session reused</text>
+  <text x="520" y="475" class="m">NO</text>
+  <text x="860" y="475" class="m">NO</text>
+  <text x="1220" y="475" class="m">YES (token store)</text>
+  <rect x="60" y="520" width="1480" height="90" rx="10" fill="#fff1e2" stroke="#f28a22" stroke-width="2"/>
+  <text x="90" y="575" class="b">Mid-query / stream failover</text>
+  <text x="520" y="575" class="m">NO (sticky ticket)</text>
+  <text x="860" y="575" class="m">NO</text>
+  <text x="1220" y="575" class="m">YES (ReattachExecute)</text>
+  <rect x="60" y="640" width="1480" height="140" rx="14" fill="#eef5f8" stroke="#9fb8c8" stroke-width="2"/>
+  <text x="100" y="695" class="h">Demo implication</text>
+  <text x="100" y="745" class="b">Stop kyuubi-1 → ZK drops :10299 → new Spark/MinIO SQL on :10300 works; in-flight Flight tickets on :10299 die.</text>
+
+</svg>

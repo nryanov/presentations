@@ -1,0 +1,57 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="900" viewBox="0 0 1600 900">
+  <rect width="1600" height="900" fill="#f7fafc"/>
+  
+<style>
+  .t{font:700 32px Arial,sans-serif;fill:#09243f}
+  .h{font:700 22px Arial,sans-serif;fill:#09243f}
+  .b{font:400 18px Arial,sans-serif;fill:#13283d}
+  .s{font:400 15px Arial,sans-serif;fill:#5d7082}
+  .m{font:400 16px Menlo,Consolas,monospace;fill:#09243f}
+  .mw{font:400 16px Menlo,Consolas,monospace;fill:#e8f5fb}
+  .hw{font:700 18px Menlo,Consolas,monospace;fill:#e8f5fb}
+</style>
+
+  
+  <defs>
+    <marker id="a" markerWidth="10" markerHeight="10" refX="9" refY="5" orient="auto">
+      <path d="M0,0 L10,5 L0,10 Z" fill="#13a6aa"/>
+    </marker>
+    <marker id="ao" markerWidth="10" markerHeight="10" refX="9" refY="5" orient="auto">
+      <path d="M0,0 L10,5 L0,10 Z" fill="#f28a22"/>
+    </marker>
+  </defs>
+
+  
+  <text x="60" y="55" class="t">Bounded result streaming</text>
+  <text x="60" y="85" class="s">FlightResultIterator keeps only the current backend page / Arrow batch resident.</text>
+  <rect x="60" y="140" width="360" height="620" rx="16" fill="#ffffff" stroke="#9fb8c8" stroke-width="2"/>
+  <text x="90" y="190" class="h">Backend pages</text>
+  <rect x="100" y="230" width="280" height="70" rx="10" fill="#dff4f2"/><text x="150" y="272" class="m">page 0 (≤1000 rows)</text>
+  <rect x="100" y="320" width="280" height="70" rx="10" fill="#eef5f8"/><text x="150" y="362" class="m">page 1</text>
+  <rect x="100" y="410" width="280" height="70" rx="10" fill="#eef5f8"/><text x="150" y="452" class="m">page 2</text>
+  <rect x="100" y="500" width="280" height="70" rx="10" fill="#eef5f8"/><text x="150" y="542" class="m">...</text>
+  <text x="100" y="640" class="s">fetchResults(</text>
+  <text x="100" y="670" class="m">  FETCH_NEXT,</text>
+  <text x="100" y="700" class="m">  fetch.max.rows)</text>
+  <line x1="420" y1="420" x2="500" y2="420" stroke="#13a6aa" stroke-width="5" marker-end="url(#a)"/>
+  <rect x="500" y="140" width="560" height="620" rx="16" fill="#e7f7f6" stroke="#13a6aa" stroke-width="3"/>
+  <text x="540" y="190" class="h">FlightResultIterator</text>
+  <rect x="540" y="230" width="480" height="200" rx="12" fill="#09243f"/>
+  <text x="570" y="275" class="mw">currentPage = one batch</text>
+  <text x="570" y="315" class="mw">hasNext → fetch next page</text>
+  <text x="570" y="355" class="mw">release previous page</text>
+  <text x="570" y="395" class="mw">cancel → closeOperation</text>
+  <rect x="540" y="470" width="480" height="80" rx="10" fill="#fff1e2"/><text x="570" y="520" class="b">Memory window ≈ 1 page</text>
+  <text x="540" y="610" class="s">gRPC listener applies backpressure</text>
+  <text x="540" y="645" class="s">(~10 MB threshold in Flight stack)</text>
+  <line x1="1060" y1="420" x2="1140" y2="420" stroke="#f28a22" stroke-width="5" marker-end="url(#ao)"/>
+  <rect x="1140" y="140" width="400" height="620" rx="16" fill="#ffffff" stroke="#9fb8c8" stroke-width="2"/>
+  <text x="1180" y="190" class="h">DoGet output</text>
+  <rect x="1180" y="240" width="320" height="70" rx="10" fill="#e8eefb"/><text x="1230" y="282" class="b">RecordBatch N</text>
+  <rect x="1180" y="330" width="320" height="70" rx="10" fill="#e8eefb"/><text x="1230" y="372" class="b">RecordBatch N+1</text>
+  <rect x="1180" y="420" width="320" height="70" rx="10" fill="#e8eefb"/><text x="1230" y="462" class="b">RecordBatch N+2</text>
+  <text x="1180" y="560" class="s">Client reads until stream ends.</text>
+  <text x="1180" y="600" class="s">No full-result Seq materialization</text>
+  <text x="1180" y="630" class="s">in the producer.</text>
+
+</svg>

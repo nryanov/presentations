@@ -1,0 +1,63 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="900" viewBox="0 0 1600 900">
+  <rect width="1600" height="900" fill="#f7fafc"/>
+  
+<style>
+  .t{font:700 32px Arial,sans-serif;fill:#09243f}
+  .h{font:700 22px Arial,sans-serif;fill:#09243f}
+  .b{font:400 18px Arial,sans-serif;fill:#13283d}
+  .s{font:400 15px Arial,sans-serif;fill:#5d7082}
+  .m{font:400 16px Menlo,Consolas,monospace;fill:#09243f}
+  .mw{font:400 16px Menlo,Consolas,monospace;fill:#e8f5fb}
+  .hw{font:700 18px Menlo,Consolas,monospace;fill:#e8f5fb}
+</style>
+
+  
+  <defs>
+    <marker id="a" markerWidth="10" markerHeight="10" refX="9" refY="5" orient="auto">
+      <path d="M0,0 L10,5 L0,10 Z" fill="#13a6aa"/>
+    </marker>
+    <marker id="ao" markerWidth="10" markerHeight="10" refX="9" refY="5" orient="auto">
+      <path d="M0,0 L10,5 L0,10 Z" fill="#f28a22"/>
+    </marker>
+  </defs>
+
+  
+  <text x="60" y="55" class="t">Apache Arrow record batch layout</text>
+  <text x="60" y="85" class="s">A Flight SQL stream is a sequence of these batches, not JDBC ResultSet rows.</text>
+  <rect x="60" y="130" width="480" height="680" rx="16" fill="#ffffff" stroke="#9fb8c8" stroke-width="2"/>
+  <text x="90" y="180" class="h">Logical table</text>
+  <rect x="90" y="210" width="420" height="50" rx="6" fill="#09243f"/>
+  <text x="110" y="242" class="mw">id:int32 | name:utf8 | amt:decimal</text>
+  <rect x="90" y="280" width="420" height="45" rx="4" fill="#eef5f8"/><text x="120" y="308" class="m">1 | alice | 10.50</text>
+  <rect x="90" y="335" width="420" height="45" rx="4" fill="#ffffff"/><text x="120" y="363" class="m">2 | bob   | 3.00</text>
+  <rect x="90" y="390" width="420" height="45" rx="4" fill="#eef5f8"/><text x="120" y="418" class="m">3 | carol | 7.25</text>
+  <text x="90" y="500" class="b">Row-oriented clients walk left→right.</text>
+  <text x="90" y="540" class="b">Arrow stores each column contiguously.</text>
+  <text x="90" y="600" class="s">That is the unit Flight SQL streams.</text>
+  <line x1="560" y1="420" x2="640" y2="420" stroke="#13a6aa" stroke-width="5" marker-end="url(#a)"/>
+  <rect x="640" y="130" width="900" height="680" rx="16" fill="#e7f7f6" stroke="#13a6aa" stroke-width="3"/>
+  <text x="680" y="180" class="h">RecordBatch = Schema + column vectors</text>
+  <rect x="680" y="220" width="820" height="90" rx="12" fill="#09243f"/>
+  <text x="710" y="260" class="hw">Schema</text>
+  <text x="710" y="290" class="mw">Field(id, Int32), Field(name, Utf8), Field(amt, Decimal)</text>
+  <rect x="680" y="340" width="250" height="340" rx="12" fill="#fff"/>
+  <text x="710" y="380" class="h">id vector</text>
+  <text x="710" y="420" class="m">validity: 111</text>
+  <text x="710" y="455" class="m">values:</text>
+  <text x="730" y="490" class="m">[1, 2, 3]</text>
+  <text x="710" y="540" class="s">contiguous int32</text>
+  <rect x="960" y="340" width="250" height="340" rx="12" fill="#fff"/>
+  <text x="990" y="380" class="h">name vector</text>
+  <text x="990" y="420" class="m">validity: 111</text>
+  <text x="990" y="455" class="m">offsets: 0,5,8,13</text>
+  <text x="990" y="490" class="m">data: alicebobcarol</text>
+  <text x="990" y="540" class="s">utf8 buffers</text>
+  <rect x="1240" y="340" width="250" height="340" rx="12" fill="#fff"/>
+  <text x="1270" y="380" class="h">amt vector</text>
+  <text x="1270" y="420" class="m">validity: 111</text>
+  <text x="1270" y="455" class="m">values:</text>
+  <text x="1290" y="490" class="m">[1050,300,725]</text>
+  <text x="1270" y="540" class="s">scale applied by type</text>
+  <text x="680" y="740" class="s">Flight DoGet emits one or more RecordBatches with this schema.</text>
+
+</svg>

@@ -1,0 +1,54 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="900" viewBox="0 0 1600 900">
+  <rect width="1600" height="900" fill="#f7fafc"/>
+  
+<style>
+  .t{font:700 32px Arial,sans-serif;fill:#09243f}
+  .h{font:700 22px Arial,sans-serif;fill:#09243f}
+  .b{font:400 18px Arial,sans-serif;fill:#13283d}
+  .s{font:400 15px Arial,sans-serif;fill:#5d7082}
+  .m{font:400 16px Menlo,Consolas,monospace;fill:#09243f}
+  .mw{font:400 16px Menlo,Consolas,monospace;fill:#e8f5fb}
+  .hw{font:700 18px Menlo,Consolas,monospace;fill:#e8f5fb}
+</style>
+
+  
+  <defs>
+    <marker id="a" markerWidth="10" markerHeight="10" refX="9" refY="5" orient="auto">
+      <path d="M0,0 L10,5 L0,10 Z" fill="#13a6aa"/>
+    </marker>
+    <marker id="ao" markerWidth="10" markerHeight="10" refX="9" refY="5" orient="auto">
+      <path d="M0,0 L10,5 L0,10 Z" fill="#f28a22"/>
+    </marker>
+  </defs>
+
+  
+  <text x="60" y="55" class="t">Flight SQL statement lifecycle in Kyuubi</text>
+  <text x="60" y="85" class="s">Two-phase: create operation (execute) then stream pages (doGet).</text>
+  <rect x="80" y="130" width="220" height="50" rx="10" fill="#dff4f2"/><text x="145" y="162" class="h">Client</text>
+  <rect x="420" y="130" width="300" height="50" rx="10" fill="#fff1e2"/><text x="470" y="162" class="h">FlightSqlProducer</text>
+  <rect x="860" y="130" width="280" height="50" rx="10" fill="#e8eefb"/><text x="920" y="162" class="h">BackendService</text>
+  <rect x="1260" y="130" width="240" height="50" rx="10" fill="#ffffff" stroke="#9fb8c8"/><text x="1330" y="162" class="h">Engine</text>
+  <line x1="190" y1="180" x2="190" y2="780" stroke="#9fb8c8" stroke-dasharray="6 6" stroke-width="2"/>
+  <line x1="570" y1="180" x2="570" y2="780" stroke="#9fb8c8" stroke-dasharray="6 6" stroke-width="2"/>
+  <line x1="1000" y1="180" x2="1000" y2="780" stroke="#9fb8c8" stroke-dasharray="6 6" stroke-width="2"/>
+  <line x1="1380" y1="180" x2="1380" y2="780" stroke="#9fb8c8" stroke-dasharray="6 6" stroke-width="2"/>
+  <line x1="190" y1="230" x2="570" y2="230" stroke="#13a6aa" stroke-width="3" marker-end="url(#a)"/>
+  <text x="220" y="220" class="m">1 execute(SELECT ...)</text>
+  <line x1="570" y1="300" x2="1000" y2="300" stroke="#13a6aa" stroke-width="3" marker-end="url(#a)"/>
+  <text x="620" y="290" class="m">2 openSession + executeStatement</text>
+  <line x1="1000" y1="370" x2="1380" y2="370" stroke="#13a6aa" stroke-width="3" marker-end="url(#a)"/>
+  <text x="1070" y="360" class="m">3 run SQL</text>
+  <line x1="1380" y1="440" x2="1000" y2="440" stroke="#f28a22" stroke-width="3" marker-end="url(#ao)"/>
+  <text x="1070" y="430" class="m">4 OperationHandle</text>
+  <line x1="1000" y1="510" x2="570" y2="510" stroke="#f28a22" stroke-width="3" marker-end="url(#ao)"/>
+  <text x="640" y="500" class="m">5 FlightInfo + Ticket(opId, owner)</text>
+  <line x1="570" y1="580" x2="190" y2="580" stroke="#f28a22" stroke-width="3" marker-end="url(#ao)"/>
+  <text x="250" y="570" class="m">6 endpoints[0]</text>
+  <line x1="190" y1="650" x2="570" y2="650" stroke="#13a6aa" stroke-width="3" marker-end="url(#a)"/>
+  <text x="230" y="640" class="m">7 doGet(ticket)</text>
+  <line x1="570" y1="720" x2="1000" y2="720" stroke="#13a6aa" stroke-width="3" marker-end="url(#a)"/>
+  <text x="620" y="710" class="m">8 fetchResults(FETCH_NEXT, maxRows)</text>
+  <rect x="1060" y="760" width="460" height="55" rx="10" fill="#09243f"/>
+  <text x="1090" y="795" class="mw">9 Arrow IPC batch stream to client</text>
+
+</svg>

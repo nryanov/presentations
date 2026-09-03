@@ -1,0 +1,42 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="900" viewBox="0 0 1600 900">
+  <rect width="1600" height="900" fill="#f7fafc"/>
+  
+<style>
+  .t{font:700 32px Arial,sans-serif;fill:#09243f}
+  .h{font:700 22px Arial,sans-serif;fill:#09243f}
+  .b{font:400 18px Arial,sans-serif;fill:#13283d}
+  .s{font:400 15px Arial,sans-serif;fill:#5d7082}
+  .m{font:400 16px Menlo,Consolas,monospace;fill:#09243f}
+  .mw{font:400 16px Menlo,Consolas,monospace;fill:#e8f5fb}
+  .hw{font:700 18px Menlo,Consolas,monospace;fill:#e8f5fb}
+</style>
+
+  
+  <defs>
+    <marker id="a" markerWidth="10" markerHeight="10" refX="9" refY="5" orient="auto">
+      <path d="M0,0 L10,5 L0,10 Z" fill="#13a6aa"/>
+    </marker>
+    <marker id="ao" markerWidth="10" markerHeight="10" refX="9" refY="5" orient="auto">
+      <path d="M0,0 L10,5 L0,10 Z" fill="#f28a22"/>
+    </marker>
+  </defs>
+
+  
+  <text x="60" y="55" class="t">Frontend protocol matrix</text>
+  <text x="60" y="85" class="s">What already ships in Kyuubi, and where Flight SQL fits.</text>
+  <rect x="50" y="120" width="1500" height="70" rx="10" fill="#09243f"/>
+  <text x="80" y="163" class="hw">Protocol</text>
+  <text x="380" y="163" class="hw">Transport</text>
+  <text x="680" y="163" class="hw">Typical client</text>
+  <text x="1000" y="163" class="hw">Result shape</text>
+  <text x="1300" y="163" class="hw">Default</text>
+  <rect x="50" y="200" width="1500" height="70" rx="8" fill="#ffffff" stroke="#c9d7e1"/><text x="80" y="242" class="m">THRIFT_BINARY</text><text x="380" y="242" class="b">TCP Thrift</text><text x="680" y="242" class="b">Beeline / JDBC</text><text x="1000" y="242" class="b">rows / Arrow TRowSet</text><text x="1300" y="242" class="b">yes</text>
+  <rect x="50" y="278" width="1500" height="70" rx="8" fill="#eef5f8" stroke="#c9d7e1"/><text x="80" y="320" class="m">REST</text><text x="380" y="320" class="b">HTTP JSON</text><text x="680" y="320" class="b">REST / admin clients</text><text x="1000" y="320" class="b">JSON DTOs</text><text x="1300" y="320" class="b">yes</text>
+  <rect x="50" y="356" width="1500" height="70" rx="8" fill="#ffffff" stroke="#c9d7e1"/><text x="80" y="398" class="m">THRIFT_HTTP</text><text x="380" y="398" class="b">HTTP Thrift</text><text x="680" y="398" class="b">HS2 HTTP clients</text><text x="1000" y="398" class="b">rows</text><text x="1300" y="398" class="b">opt-in</text>
+  <rect x="50" y="434" width="1500" height="70" rx="8" fill="#eef5f8" stroke="#c9d7e1"/><text x="80" y="476" class="m">MYSQL / TRINO</text><text x="380" y="476" class="b">MySQL / HTTP</text><text x="680" y="476" class="b">mysql / Trino clients</text><text x="1000" y="476" class="b">rows</text><text x="1300" y="476" class="b">opt-in</text>
+  <rect x="50" y="512" width="1500" height="70" rx="8" fill="#ffffff" stroke="#c9d7e1"/><text x="80" y="554" class="m">SPARK_CONNECT</text><text x="380" y="554" class="b">gRPC</text><text x="680" y="554" class="b">Spark Connect client</text><text x="1000" y="554" class="b">Spark API results</text><text x="1300" y="554" class="b">opt-in</text>
+  <rect x="50" y="590" width="1500" height="90" rx="8" fill="#fff1e2" stroke="#f28a22" stroke-width="3"/><text x="80" y="635" class="m">FLIGHT_SQL</text><text x="380" y="635" class="b">gRPC Flight</text><text x="680" y="635" class="b">ADBC / FlightSqlClient</text><text x="1000" y="635" class="b">Arrow IPC batches</text><text x="1300" y="635" class="b">opt-in · NEW</text>
+  <text x="60" y="740" class="b">Enable with: kyuubi.frontend.protocols=...,FLIGHT_SQL</text>
+  <text x="60" y="780" class="s">Flight SQL reuses the same BackendService path as Thrift/REST. The difference is the wire protocol and result encoding.</text>
+
+</svg>

@@ -1,0 +1,51 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="900" viewBox="0 0 1600 900">
+  <rect width="1600" height="900" fill="#f7fafc"/>
+  
+<style>
+  .t{font:700 32px Arial,sans-serif;fill:#09243f}
+  .h{font:700 22px Arial,sans-serif;fill:#09243f}
+  .b{font:400 18px Arial,sans-serif;fill:#13283d}
+  .s{font:400 15px Arial,sans-serif;fill:#5d7082}
+  .m{font:400 16px Menlo,Consolas,monospace;fill:#09243f}
+  .mw{font:400 16px Menlo,Consolas,monospace;fill:#e8f5fb}
+  .hw{font:700 18px Menlo,Consolas,monospace;fill:#e8f5fb}
+</style>
+
+  
+  <defs>
+    <marker id="a" markerWidth="10" markerHeight="10" refX="9" refY="5" orient="auto">
+      <path d="M0,0 L10,5 L0,10 Z" fill="#13a6aa"/>
+    </marker>
+    <marker id="ao" markerWidth="10" markerHeight="10" refX="9" refY="5" orient="auto">
+      <path d="M0,0 L10,5 L0,10 Z" fill="#f28a22"/>
+    </marker>
+  </defs>
+
+  
+  <text x="60" y="55" class="t">Supported operations and metrics</text>
+  <text x="60" y="85" class="s">Explicit capability boundary for the Flight SQL frontend.</text>
+  <rect x="60" y="140" width="720" height="420" rx="16" fill="#e7f7f6" stroke="#13a6aa" stroke-width="3"/>
+  <text x="100" y="190" class="h">Supported</text>
+  <text x="100" y="240" class="b">• SQL statements (CommandStatementQuery)</text>
+  <text x="100" y="280" class="b">• Bounded Arrow streaming via doGet</text>
+  <text x="100" y="320" class="b">• Catalogs / schemas / tables / table types</text>
+  <text x="100" y="360" class="b">• SQL info / XDBC type info</text>
+  <text x="100" y="400" class="b">• Cancel + operation cleanup</text>
+  <text x="100" y="440" class="b">• Auth: NONE, Basic/LDAP, SPNEGO→Bearer</text>
+  <text x="100" y="480" class="b">• TLS with PEM cert/key</text>
+  <rect x="820" y="140" width="720" height="420" rx="16" fill="#fff1e2" stroke="#f28a22" stroke-width="3"/>
+  <text x="860" y="190" class="h">Not yet (UNIMPLEMENTED)</text>
+  <text x="860" y="240" class="b">• Prepared statements</text>
+  <text x="860" y="280" class="b">• Ingestion / bulk put</text>
+  <text x="860" y="320" class="b">• Substrait plans</text>
+  <text x="860" y="360" class="b">• Transactions / savepoints</text>
+  <text x="860" y="400" class="b">• Transparent HA mid-stream failover</text>
+  <text x="860" y="460" class="s">Clients should expect Flight UNIMPLEMENTED</text>
+  <text x="860" y="495" class="s">status codes for these RPCs.</text>
+  <rect x="60" y="600" width="1480" height="220" rx="16" fill="#09243f"/>
+  <text x="100" y="650" class="hw">Prometheus metrics (:10019/metrics)</text>
+  <text x="100" y="700" class="mw">kyuubi.flight.sql.connection.{opened,total,failed}</text>
+  <text x="100" y="740" class="mw">kyuubi.flight.sql.operation.{opened,total,failed,cancelled}</text>
+  <text x="100" y="780" class="mw">kyuubi.flight.sql.stream.{batches,rows,bytes}</text>
+
+</svg>

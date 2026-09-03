@@ -1,0 +1,54 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="900" viewBox="0 0 1600 900">
+  <rect width="1600" height="900" fill="#f7fafc"/>
+  
+<style>
+  .t{font:700 32px Arial,sans-serif;fill:#09243f}
+  .h{font:700 22px Arial,sans-serif;fill:#09243f}
+  .b{font:400 18px Arial,sans-serif;fill:#13283d}
+  .s{font:400 15px Arial,sans-serif;fill:#5d7082}
+  .m{font:400 16px Menlo,Consolas,monospace;fill:#09243f}
+  .mw{font:400 16px Menlo,Consolas,monospace;fill:#e8f5fb}
+  .hw{font:700 18px Menlo,Consolas,monospace;fill:#e8f5fb}
+</style>
+
+  
+  <defs>
+    <marker id="a" markerWidth="10" markerHeight="10" refX="9" refY="5" orient="auto">
+      <path d="M0,0 L10,5 L0,10 Z" fill="#13a6aa"/>
+    </marker>
+    <marker id="ao" markerWidth="10" markerHeight="10" refX="9" refY="5" orient="auto">
+      <path d="M0,0 L10,5 L0,10 Z" fill="#f28a22"/>
+    </marker>
+  </defs>
+
+  
+  <text x="60" y="55" class="t">Engine → Arrow conversion paths</text>
+  <text x="60" y="85" class="s">One Flight schema; two conversion strategies depending on engine capability.</text>
+  <rect x="60" y="140" width="460" height="640" rx="16" fill="#ffffff" stroke="#9fb8c8" stroke-width="2"/>
+  <text x="100" y="195" class="h">Spark</text>
+  <rect x="100" y="230" width="380" height="120" rx="12" fill="#e7f7f6"/><text x="130" y="280" class="b">Native Arrow IPC</text><text x="130" y="315" class="s">carried inside TRowSet</text>
+  <text x="100" y="410" class="m">operation.result.format=arrow</text>
+  <text x="100" y="460" class="b">Preferred path for Flight SQL demos.</text>
+  <text x="100" y="520" class="s">Still crosses BackendService;</text>
+  <text x="100" y="550" class="s">not engine-direct Flight.</text>
+  <rect x="570" y="140" width="460" height="640" rx="16" fill="#fff1e2" stroke="#f28a22" stroke-width="3"/>
+  <text x="610" y="195" class="h">KyuubiFlightArrowUtils</text>
+  <rect x="610" y="240" width="380" height="200" rx="12" fill="#09243f"/>
+  <text x="640" y="290" class="mw">TTableSchema → Fields</text>
+  <text x="640" y="330" class="mw">TRowSet columns → vectors</text>
+  <text x="640" y="370" class="mw">populateRootFromRowSet</text>
+  <text x="640" y="410" class="mw">write IPC / VectorSchemaRoot</text>
+  <text x="610" y="510" class="b">Supported primitives</text>
+  <text x="610" y="550" class="s">bool, ints, float/double, decimal,</text>
+  <text x="610" y="580" class="s">date, timestamp, string, binary</text>
+  <text x="610" y="640" class="s">Same Arrow schema is exposed</text>
+  <text x="610" y="670" class="s">to the Flight SQL client.</text>
+  <rect x="1080" y="140" width="460" height="640" rx="16" fill="#ffffff" stroke="#9fb8c8" stroke-width="2"/>
+  <text x="1120" y="195" class="h">Trino / Flink / Hive / JDBC</text>
+  <rect x="1120" y="240" width="380" height="120" rx="12" fill="#e8eefb"/><text x="1150" y="290" class="b">Columnar / row TRowSet</text><text x="1150" y="325" class="s">no native Arrow IPC</text>
+  <text x="1120" y="430" class="b">Shared converter builds</text>
+  <text x="1120" y="470" class="b">Arrow vectors page-by-page.</text>
+  <text x="1120" y="540" class="s">Same Flight SQL client contract</text>
+  <text x="1120" y="570" class="s">regardless of engine.</text>
+
+</svg>

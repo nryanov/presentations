@@ -1,0 +1,42 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="900" viewBox="0 0 1600 900">
+  <rect width="1600" height="900" fill="#f7fafc"/>
+  
+<style>
+  .t{font:700 32px Arial,sans-serif;fill:#09243f}
+  .h{font:700 22px Arial,sans-serif;fill:#09243f}
+  .b{font:400 18px Arial,sans-serif;fill:#13283d}
+  .s{font:400 15px Arial,sans-serif;fill:#5d7082}
+  .m{font:400 16px Menlo,Consolas,monospace;fill:#09243f}
+  .mw{font:400 16px Menlo,Consolas,monospace;fill:#e8f5fb}
+  .hw{font:700 18px Menlo,Consolas,monospace;fill:#e8f5fb}
+</style>
+
+  
+  <defs>
+    <marker id="a" markerWidth="10" markerHeight="10" refX="9" refY="5" orient="auto">
+      <path d="M0,0 L10,5 L0,10 Z" fill="#13a6aa"/>
+    </marker>
+    <marker id="ao" markerWidth="10" markerHeight="10" refX="9" refY="5" orient="auto">
+      <path d="M0,0 L10,5 L0,10 Z" fill="#f28a22"/>
+    </marker>
+  </defs>
+
+  
+  <text x="60" y="55" class="t">Available Flight SQL configuration keys</text>
+  <text x="60" y="85" class="s">Enable via kyuubi.frontend.protocols; Flight knobs under kyuubi.frontend.flight.sql.*</text>
+  <rect x="60" y="130" width="1480" height="700" rx="16" fill="#ffffff" stroke="#9fb8c8" stroke-width="2"/>
+  <rect x="100" y="180" width="1400" height="600" rx="12" fill="#09243f"/>
+  <text x="140" y="240" class="hw">Enablement</text>
+  <text x="140" y="290" class="mw">kyuubi.frontend.protocols = …,FLIGHT_SQL</text>
+  <text x="140" y="360" class="hw">Flight SQL</text>
+  <text x="140" y="410" class="mw">kyuubi.frontend.flight.sql.bind.host</text>
+  <text x="140" y="450" class="mw">kyuubi.frontend.flight.sql.bind.port            (default 10299)</text>
+  <text x="140" y="490" class="mw">kyuubi.frontend.flight.sql.fetch.max.rows       (default 1000)</text>
+  <text x="140" y="530" class="mw">kyuubi.frontend.flight.sql.ssl.enabled</text>
+  <text x="140" y="570" class="mw">kyuubi.frontend.flight.sql.ssl.cert.file / .ssl.key.file</text>
+  <text x="140" y="610" class="mw">kyuubi.frontend.flight.sql.token.ttl            (default PT2H)</text>
+  <text x="140" y="670" class="hw">Related</text>
+  <text x="140" y="720" class="mw">kyuubi.ha.flight.sql.namespace                  (default kyuubi_flight)</text>
+  <text x="900" y="720" class="mw">kyuubi.operation.result.format=arrow</text>
+
+</svg>

@@ -1,0 +1,51 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="900" viewBox="0 0 1600 900">
+  <rect width="1600" height="900" fill="#f7fafc"/>
+  
+<style>
+  .t{font:700 32px Arial,sans-serif;fill:#09243f}
+  .h{font:700 22px Arial,sans-serif;fill:#09243f}
+  .b{font:400 18px Arial,sans-serif;fill:#13283d}
+  .s{font:400 15px Arial,sans-serif;fill:#5d7082}
+  .m{font:400 16px Menlo,Consolas,monospace;fill:#09243f}
+  .mw{font:400 16px Menlo,Consolas,monospace;fill:#e8f5fb}
+  .hw{font:700 18px Menlo,Consolas,monospace;fill:#e8f5fb}
+</style>
+
+  
+  <defs>
+    <marker id="a" markerWidth="10" markerHeight="10" refX="9" refY="5" orient="auto">
+      <path d="M0,0 L10,5 L0,10 Z" fill="#13a6aa"/>
+    </marker>
+    <marker id="ao" markerWidth="10" markerHeight="10" refX="9" refY="5" orient="auto">
+      <path d="M0,0 L10,5 L0,10 Z" fill="#f28a22"/>
+    </marker>
+  </defs>
+
+  
+  <text x="60" y="55" class="t">Kyuubi Flight SQL class stack</text>
+  <text x="60" y="85" class="s">The producer is a BackendService adapter — not an engine-specific connector.</text>
+  <rect x="120" y="140" width="1360" height="90" rx="14" fill="#09243f"/>
+  <text x="160" y="180" class="hw">KyuubiFlightSqlFrontendService</text>
+  <text x="160" y="210" class="mw">binds FlightServer · auth handler · TLS PEM · HA registration</text>
+  <line x1="800" y1="230" x2="800" y2="280" stroke="#13a6aa" stroke-width="4" marker-end="url(#a)"/>
+  <rect x="120" y="280" width="1360" height="90" rx="14" fill="#fff1e2" stroke="#f28a22" stroke-width="3"/>
+  <text x="160" y="320" class="h">KyuubiFlightSqlProducer implements FlightSqlProducer</text>
+  <text x="160" y="350" class="m">getFlightInfoStatement · getStream · getCatalogs/Schemas/Tables · cancel</text>
+  <line x1="800" y1="370" x2="800" y2="420" stroke="#13a6aa" stroke-width="4" marker-end="url(#a)"/>
+  <rect x="120" y="420" width="640" height="160" rx="14" fill="#e7f7f6" stroke="#13a6aa" stroke-width="2"/>
+  <text x="150" y="460" class="h">FlightResultIterator</text>
+  <text x="150" y="500" class="m">bounded page window</text>
+  <text x="150" y="530" class="m">fetch.max.rows per page</text>
+  <text x="150" y="560" class="m">close / cancel cleanup</text>
+  <rect x="840" y="420" width="640" height="160" rx="14" fill="#e7f7f6" stroke="#13a6aa" stroke-width="2"/>
+  <text x="870" y="460" class="h">KyuubiFlightArrowUtils</text>
+  <text x="870" y="500" class="m">schema from TTableSchema</text>
+  <text x="870" y="530" class="m">TRowSet / Arrow IPC → vectors</text>
+  <text x="870" y="560" class="m">unsupported types → error</text>
+  <line x1="800" y1="580" x2="800" y2="630" stroke="#f28a22" stroke-width="4" marker-end="url(#ao)"/>
+  <rect x="120" y="630" width="1360" height="120" rx="14" fill="#ffffff" stroke="#9fb8c8" stroke-width="2"/>
+  <text x="160" y="675" class="h">BackendService (shared with Thrift/REST)</text>
+  <text x="160" y="715" class="m">openSession · executeStatement · getOperationStatus · fetchResults · cancelOperation · closeOperation</text>
+  <text x="160" y="745" class="s">Session tagged with protocol=FLIGHT_SQL and resultFormat=arrow when supported.</text>
+
+</svg>

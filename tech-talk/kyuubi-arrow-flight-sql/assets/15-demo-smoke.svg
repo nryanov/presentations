@@ -1,0 +1,47 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="900" viewBox="0 0 1600 900">
+  <rect width="1600" height="900" fill="#f7fafc"/>
+  
+<style>
+  .t{font:700 32px Arial,sans-serif;fill:#09243f}
+  .h{font:700 22px Arial,sans-serif;fill:#09243f}
+  .b{font:400 18px Arial,sans-serif;fill:#13283d}
+  .s{font:400 15px Arial,sans-serif;fill:#5d7082}
+  .m{font:400 16px Menlo,Consolas,monospace;fill:#09243f}
+  .mw{font:400 16px Menlo,Consolas,monospace;fill:#e8f5fb}
+  .hw{font:700 18px Menlo,Consolas,monospace;fill:#e8f5fb}
+</style>
+
+  
+  <defs>
+    <marker id="a" markerWidth="10" markerHeight="10" refX="9" refY="5" orient="auto">
+      <path d="M0,0 L10,5 L0,10 Z" fill="#13a6aa"/>
+    </marker>
+    <marker id="ao" markerWidth="10" markerHeight="10" refX="9" refY="5" orient="auto">
+      <path d="M0,0 L10,5 L0,10 Z" fill="#f28a22"/>
+    </marker>
+  </defs>
+
+  
+  <text x="60" y="55" class="t">Demo verification path</text>
+  <text x="60" y="85" class="s">presentation/live-demo — Flight SQL + Spark + MinIO on both HA nodes.</text>
+  <rect x="60" y="140" width="330" height="200" rx="14" fill="#09243f"/><text x="90" y="190" class="hw">1. Build</text><text x="90" y="235" class="mw">./build/dist --tgz</text><text x="90" y="270" class="mw">--spark-provided</text><text x="90" y="305" class="mw">-Pscala-2.13 -Pspark-3.5</text>
+  <line x1="390" y1="240" x2="450" y2="240" stroke="#13a6aa" stroke-width="4" marker-end="url(#a)"/>
+  <rect x="450" y="140" width="330" height="200" rx="14" fill="#09243f"/><text x="480" y="190" class="hw">2. Stage</text><text x="480" y="235" class="mw">live-demo/</text><text x="480" y="270" class="mw">prepare-dist.sh</text><text x="480" y="305" class="mw">docker compose build</text>
+  <line x1="780" y1="240" x2="840" y2="240" stroke="#13a6aa" stroke-width="4" marker-end="url(#a)"/>
+  <rect x="840" y="140" width="330" height="200" rx="14" fill="#09243f"/><text x="870" y="190" class="hw">3. Run</text><text x="870" y="235" class="mw">compose up -d</text><text x="870" y="270" class="mw">wait-for-stack.sh</text><text x="870" y="305" class="mw">show-zk.sh</text>
+  <line x1="1170" y1="240" x2="1230" y2="240" stroke="#f28a22" stroke-width="4" marker-end="url(#ao)"/>
+  <rect x="1230" y="140" width="310" height="200" rx="14" fill="#fff1e2" stroke="#f28a22" stroke-width="3"/><text x="1260" y="220" class="h">ready</text><text x="1260" y="270" class="b">ZK + MinIO</text><text x="1260" y="310" class="s">10299 + 10300</text>
+  <rect x="60" y="400" width="1480" height="400" rx="16" fill="#ffffff" stroke="#9fb8c8" stroke-width="2"/>
+  <text x="100" y="455" class="h">4. Smoke suite (not only SELECT 1)</text>
+  <rect x="100" y="490" width="900" height="250" rx="12" fill="#09243f"/>
+  <text x="130" y="535" class="mw">./scripts/smoke_test.py --both --suite</text>
+  <text x="130" y="580" class="mw"># ping · spark_range · s3_sales_*</text>
+  <text x="130" y="620" class="mw"># s3_products_csv · s3_join_style</text>
+  <text x="130" y="670" class="mw">./scripts/ha_failover_demo.sh</text>
+  <rect x="1040" y="490" width="440" height="250" rx="12" fill="#e7f7f6" stroke="#13a6aa" stroke-width="2"/>
+  <text x="1080" y="550" class="h">Expected</text>
+  <text x="1080" y="600" class="m">suite OK on both</text>
+  <text x="1080" y="640" class="m">MinIO aggregations</text>
+  <text x="1080" y="680" class="m">survivor after stop</text>
+
+</svg>

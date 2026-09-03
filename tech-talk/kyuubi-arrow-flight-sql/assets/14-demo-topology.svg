@@ -1,0 +1,46 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="900" viewBox="0 0 1600 900">
+  <rect width="1600" height="900" fill="#f7fafc"/>
+  
+<style>
+  .t{font:700 32px Arial,sans-serif;fill:#09243f}
+  .h{font:700 22px Arial,sans-serif;fill:#09243f}
+  .b{font:400 18px Arial,sans-serif;fill:#13283d}
+  .s{font:400 15px Arial,sans-serif;fill:#5d7082}
+  .m{font:400 16px Menlo,Consolas,monospace;fill:#09243f}
+  .mw{font:400 16px Menlo,Consolas,monospace;fill:#e8f5fb}
+  .hw{font:700 18px Menlo,Consolas,monospace;fill:#e8f5fb}
+</style>
+
+  
+  <defs>
+    <marker id="a" markerWidth="10" markerHeight="10" refX="9" refY="5" orient="auto">
+      <path d="M0,0 L10,5 L0,10 Z" fill="#13a6aa"/>
+    </marker>
+    <marker id="ao" markerWidth="10" markerHeight="10" refX="9" refY="5" orient="auto">
+      <path d="M0,0 L10,5 L0,10 Z" fill="#f28a22"/>
+    </marker>
+  </defs>
+
+  
+  <text x="60" y="55" class="t">Live demo topology (concrete)</text>
+  <text x="60" y="85" class="s">presentation/live-demo · ZK HA · 2 Kyuubi · Spark local[*] · MinIO s3a://demo · auth NONE</text>
+  <rect x="60" y="120" width="700" height="70" rx="12" fill="#09243f"/><text x="90" y="165" class="hw">zookeeper:2181 → /kyuubi + /kyuubi_flight</text>
+  <rect x="800" y="120" width="740" height="70" rx="12" fill="#5d7082"/><text x="830" y="165" class="hw">minio:9000  bucket=demo  console:9001</text>
+  <rect x="60" y="220" width="700" height="300" rx="16" fill="#ffffff" stroke="#13a6aa" stroke-width="3"/>
+  <text x="100" y="270" class="h">kyuubi-1</text>
+  <text x="100" y="320" class="m">Flight :10299 · Thrift :10009</text>
+  <text x="100" y="360" class="m">Spark local[*] + hadoop-aws</text>
+  <text x="100" y="400" class="m">reads s3a://demo/…</text>
+  <text x="100" y="450" class="s">share.level=SERVER_LOCAL</text>
+  <rect x="840" y="220" width="700" height="300" rx="16" fill="#ffffff" stroke="#f28a22" stroke-width="3"/>
+  <text x="880" y="270" class="h">kyuubi-2</text>
+  <text x="880" y="320" class="m">Flight :10300 · Thrift :10010</text>
+  <text x="880" y="360" class="m">Spark local[*] + hadoop-aws</text>
+  <text x="880" y="400" class="m">same MinIO bucket</text>
+  <text x="880" y="450" class="s">share.level=SERVER_LOCAL</text>
+  <rect x="60" y="560" width="1480" height="220" rx="14" fill="#e7f7f6" stroke="#13a6aa" stroke-width="2"/>
+  <text x="100" y="615" class="h">Host clients / smoke suite</text>
+  <text x="100" y="665" class="m">ADBC → :10299 / :10300 · suite: range(), json.`s3a://demo/sales/…`, read_csv(…), aggregations</text>
+  <text x="100" y="715" class="m">ha_failover_demo.sh · show-zk.sh · Spark UI :4040 / :4041 · MinIO console :9001</text>
+
+</svg>

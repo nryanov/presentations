@@ -1,0 +1,44 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="900" viewBox="0 0 1600 900">
+  <rect width="1600" height="900" fill="#f7fafc"/>
+  
+<style>
+  .t{font:700 32px Arial,sans-serif;fill:#09243f}
+  .h{font:700 22px Arial,sans-serif;fill:#09243f}
+  .b{font:400 18px Arial,sans-serif;fill:#13283d}
+  .s{font:400 15px Arial,sans-serif;fill:#5d7082}
+  .m{font:400 16px Menlo,Consolas,monospace;fill:#09243f}
+  .mw{font:400 16px Menlo,Consolas,monospace;fill:#e8f5fb}
+  .hw{font:700 18px Menlo,Consolas,monospace;fill:#e8f5fb}
+</style>
+
+  
+  <defs>
+    <marker id="a" markerWidth="10" markerHeight="10" refX="9" refY="5" orient="auto">
+      <path d="M0,0 L10,5 L0,10 Z" fill="#13a6aa"/>
+    </marker>
+    <marker id="ao" markerWidth="10" markerHeight="10" refX="9" refY="5" orient="auto">
+      <path d="M0,0 L10,5 L0,10 Z" fill="#f28a22"/>
+    </marker>
+  </defs>
+
+  
+  <text x="60" y="55" class="t">HA: dedicated namespace + node-affine tickets</text>
+  <text x="60" y="85" class="s">Flight discovery is separate from Thrift and Spark Connect. Active streams stick to the owning node.</text>
+  <rect x="60" y="140" width="500" height="300" rx="16" fill="#ffffff" stroke="#9fb8c8" stroke-width="2"/>
+  <text x="90" y="190" class="h">ZooKeeper namespaces</text>
+  <rect x="90" y="220" width="440" height="50" rx="8" fill="#eef5f8"/><text x="110" y="252" class="m">kyuubi.ha.namespace          (Thrift)</text>
+  <rect x="90" y="285" width="440" height="50" rx="8" fill="#eef5f8"/><text x="110" y="317" class="m">kyuubi.ha.spark.connect...   (SC)</text>
+  <rect x="90" y="350" width="440" height="55" rx="8" fill="#fff1e2" stroke="#f28a22" stroke-width="2"/><text x="110" y="385" class="m">kyuubi.ha.flight.sql.namespace</text>
+  <rect x="620" y="140" width="920" height="300" rx="16" fill="#e7f7f6" stroke="#13a6aa" stroke-width="3"/>
+  <text x="660" y="190" class="h">Registered Flight nodes</text>
+  <rect x="660" y="230" width="380" height="160" rx="12" fill="#09243f"/><text x="690" y="275" class="hw">node-A :10299</text><text x="690" y="315" class="mw">owner of ticket T1</text><text x="690" y="355" class="mw">advertised in FlightInfo</text>
+  <rect x="1090" y="230" width="380" height="160" rx="12" fill="#5d7082"/><text x="1120" y="275" class="hw">node-B :10299</text><text x="1120" y="315" class="mw">not owner of T1</text><text x="1120" y="355" class="mw">doGet(T1) → reject/stale</text>
+  <rect x="60" y="490" width="1480" height="320" rx="16" fill="#ffffff" stroke="#9fb8c8" stroke-width="2"/>
+  <text x="100" y="540" class="h">Client routing contract</text>
+  <text x="100" y="595" class="b">1. execute() returns FlightInfo with endpoints = [owner host:port]</text>
+  <text x="100" y="640" class="b">2. Ticket encodes operation id + owning node identity</text>
+  <text x="100" y="685" class="b">3. doGet / cancel / close must target that owner</text>
+  <text x="100" y="730" class="b">4. Transparent mid-query failover across nodes is not supported</text>
+  <text x="100" y="775" class="s">Load balancers need sticky routing (or clients must follow advertised endpoint).</text>
+
+</svg>

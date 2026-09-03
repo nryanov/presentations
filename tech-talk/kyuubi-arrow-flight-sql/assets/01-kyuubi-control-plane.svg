@@ -1,0 +1,56 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="900" viewBox="0 0 1600 900">
+  <rect width="1600" height="900" fill="#f7fafc"/>
+  
+<style>
+  .t{font:700 32px Arial,sans-serif;fill:#09243f}
+  .h{font:700 22px Arial,sans-serif;fill:#09243f}
+  .b{font:400 18px Arial,sans-serif;fill:#13283d}
+  .s{font:400 15px Arial,sans-serif;fill:#5d7082}
+  .m{font:400 16px Menlo,Consolas,monospace;fill:#09243f}
+  .mw{font:400 16px Menlo,Consolas,monospace;fill:#e8f5fb}
+  .hw{font:700 18px Menlo,Consolas,monospace;fill:#e8f5fb}
+</style>
+
+  
+  <defs>
+    <marker id="a" markerWidth="10" markerHeight="10" refX="9" refY="5" orient="auto">
+      <path d="M0,0 L10,5 L0,10 Z" fill="#13a6aa"/>
+    </marker>
+    <marker id="ao" markerWidth="10" markerHeight="10" refX="9" refY="5" orient="auto">
+      <path d="M0,0 L10,5 L0,10 Z" fill="#f28a22"/>
+    </marker>
+  </defs>
+
+  
+  <text x="60" y="55" class="t">Kyuubi control plane</text>
+  <text x="60" y="85" class="s">Clients hit a frontend protocol; all work is routed through BackendService into an engine.</text>
+  <rect x="50" y="120" width="1500" height="120" rx="14" fill="#ffffff" stroke="#9fb8c8" stroke-width="2"/>
+  <text x="70" y="155" class="h">Clients</text>
+  <rect x="70" y="175" width="160" height="40" rx="8" fill="#dff4f2"/><text x="95" y="200" class="b">Beeline / JDBC</text>
+  <rect x="250" y="175" width="140" height="40" rx="8" fill="#dff4f2"/><text x="285" y="200" class="b">REST client</text>
+  <rect x="410" y="175" width="170" height="40" rx="8" fill="#dff4f2"/><text x="445" y="200" class="b">Trino client</text>
+  <rect x="600" y="175" width="180" height="40" rx="8" fill="#dff4f2"/><text x="620" y="200" class="b">Spark Connect</text>
+  <rect x="800" y="175" width="220" height="40" rx="8" fill="#fff1e2" stroke="#f28a22" stroke-width="2"/><text x="830" y="200" class="b">ADBC / Flight SQL</text>
+  <line x1="800" y1="240" x2="800" y2="290" stroke="#13a6aa" stroke-width="4" marker-end="url(#a)"/>
+  <rect x="50" y="290" width="1500" height="220" rx="14" fill="#e7f7f6" stroke="#13a6aa" stroke-width="3"/>
+  <text x="70" y="325" class="h">KyuubiServer frontends</text>
+  <rect x="70" y="350" width="220" height="120" rx="10" fill="#fff"/><text x="90" y="385" class="m">THRIFT_BINARY</text><text x="90" y="415" class="s">HiveServer2 Thrift</text><text x="90" y="445" class="s">default :10009</text>
+  <rect x="310" y="350" width="180" height="120" rx="10" fill="#fff"/><text x="330" y="385" class="m">REST</text><text x="330" y="415" class="s">HTTP JSON API</text><text x="330" y="445" class="s">default :10099</text>
+  <rect x="510" y="350" width="180" height="120" rx="10" fill="#fff"/><text x="530" y="385" class="m">THRIFT_HTTP</text><text x="530" y="415" class="s">HS2 over HTTP</text>
+  <rect x="710" y="350" width="160" height="120" rx="10" fill="#fff"/><text x="730" y="385" class="m">MYSQL</text><text x="730" y="415" class="s">MySQL wire</text>
+  <rect x="890" y="350" width="160" height="120" rx="10" fill="#fff"/><text x="910" y="385" class="m">TRINO</text><text x="910" y="415" class="s">Trino HTTP</text>
+  <rect x="1070" y="350" width="200" height="120" rx="10" fill="#fff"/><text x="1090" y="385" class="m">SPARK_CONNECT</text><text x="1090" y="415" class="s">gRPC Spark API</text>
+  <rect x="1290" y="350" width="230" height="120" rx="10" fill="#fff1e2" stroke="#f28a22" stroke-width="3"/><text x="1310" y="385" class="m">FLIGHT_SQL</text><text x="1310" y="415" class="s">Arrow Flight gRPC</text><text x="1310" y="445" class="s">default :10299</text>
+  <line x1="800" y1="510" x2="800" y2="560" stroke="#13a6aa" stroke-width="4" marker-end="url(#a)"/>
+  <rect x="400" y="560" width="800" height="90" rx="14" fill="#09243f"/>
+  <text x="450" y="600" class="hw">BackendService</text>
+  <text x="450" y="630" class="mw">openSession · executeStatement · fetchResults · cancel · close · metadata RPCs</text>
+  <line x1="800" y1="650" x2="800" y2="700" stroke="#f28a22" stroke-width="4" marker-end="url(#ao)"/>
+  <rect x="180" y="700" width="200" height="80" rx="10" fill="#fff" stroke="#9fb8c8"/><text x="245" y="735" class="h">Spark</text><text x="220" y="765" class="s">SQL engine</text>
+  <rect x="420" y="700" width="200" height="80" rx="10" fill="#fff" stroke="#9fb8c8"/><text x="485" y="735" class="h">Trino</text><text x="455" y="765" class="s">SQL engine</text>
+  <rect x="660" y="700" width="200" height="80" rx="10" fill="#fff" stroke="#9fb8c8"/><text x="725" y="735" class="h">Flink</text><text x="695" y="765" class="s">SQL engine</text>
+  <rect x="900" y="700" width="200" height="80" rx="10" fill="#fff" stroke="#9fb8c8"/><text x="965" y="735" class="h">Hive</text><text x="940" y="765" class="s">SQL engine</text>
+  <rect x="1140" y="700" width="200" height="80" rx="10" fill="#fff" stroke="#9fb8c8"/><text x="1205" y="735" class="h">JDBC</text><text x="1170" y="765" class="s">engine bridge</text>
+  <text x="50" y="850" class="s">Frontends never open Spark/Trino clients themselves. Engine selection and lifecycle stay on BackendService.</text>
+
+</svg>

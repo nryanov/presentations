@@ -1,0 +1,45 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="900" viewBox="0 0 1600 900">
+  <rect width="1600" height="900" fill="#f7fafc"/>
+  
+<style>
+  .t{font:700 32px Arial,sans-serif;fill:#09243f}
+  .h{font:700 22px Arial,sans-serif;fill:#09243f}
+  .b{font:400 18px Arial,sans-serif;fill:#13283d}
+  .s{font:400 15px Arial,sans-serif;fill:#5d7082}
+  .m{font:400 16px Menlo,Consolas,monospace;fill:#09243f}
+  .mw{font:400 16px Menlo,Consolas,monospace;fill:#e8f5fb}
+  .hw{font:700 18px Menlo,Consolas,monospace;fill:#e8f5fb}
+</style>
+
+  
+  <defs>
+    <marker id="a" markerWidth="10" markerHeight="10" refX="9" refY="5" orient="auto">
+      <path d="M0,0 L10,5 L0,10 Z" fill="#13a6aa"/>
+    </marker>
+    <marker id="ao" markerWidth="10" markerHeight="10" refX="9" refY="5" orient="auto">
+      <path d="M0,0 L10,5 L0,10 Z" fill="#f28a22"/>
+    </marker>
+  </defs>
+
+  
+  <text x="60" y="55" class="t">Arrow Flight vs Arrow Flight SQL</text>
+  <text x="60" y="85" class="s">Flight is the transport. Flight SQL is the SQL command protocol on top of that transport.</text>
+  <rect x="80" y="150" width="680" height="620" rx="16" fill="#ffffff" stroke="#9fb8c8" stroke-width="2"/>
+  <text x="120" y="205" class="h">Arrow Flight (transport)</text>
+  <rect x="120" y="240" width="600" height="70" rx="10" fill="#dff4f2"/><text x="150" y="282" class="m">DoGet(Ticket) → stream RecordBatch</text>
+  <rect x="120" y="330" width="600" height="70" rx="10" fill="#dff4f2"/><text x="150" y="372" class="m">GetFlightInfo(Descriptor) → FlightInfo</text>
+  <rect x="120" y="420" width="600" height="70" rx="10" fill="#dff4f2"/><text x="150" y="462" class="m">DoAction / ListFlights / Handshake</text>
+  <rect x="120" y="510" width="600" height="70" rx="10" fill="#eef5f8"/><text x="150" y="552" class="b">gRPC + Arrow IPC payload</text>
+  <text x="120" y="640" class="s">Knows how to move Arrow data.</text>
+  <text x="120" y="675" class="s">Does not define SQL semantics.</text>
+  <rect x="840" y="150" width="680" height="620" rx="16" fill="#fff1e2" stroke="#f28a22" stroke-width="3"/>
+  <text x="880" y="205" class="h">Arrow Flight SQL (commands)</text>
+  <rect x="880" y="240" width="600" height="70" rx="10" fill="#fff"/><text x="910" y="282" class="m">CommandStatementQuery</text>
+  <rect x="880" y="330" width="600" height="70" rx="10" fill="#fff"/><text x="910" y="372" class="m">CommandGetTables / GetCatalogs / ...</text>
+  <rect x="880" y="420" width="600" height="70" rx="10" fill="#fff"/><text x="910" y="462" class="m">CommandGetSqlInfo / XdbcTypeInfo</text>
+  <rect x="880" y="510" width="600" height="70" rx="10" fill="#fff"/><text x="910" y="552" class="m">CancelQuery / ClosePreparedStatement*</text>
+  <text x="880" y="640" class="s">Defines SQL metadata and statement RPCs.</text>
+  <text x="880" y="675" class="s">Implemented by FlightSqlProducer.</text>
+  <text x="880" y="720" class="s">* prepared statements: not implemented yet in Kyuubi</text>
+
+</svg>
